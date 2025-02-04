@@ -10,7 +10,7 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
 export class TestComponentComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
-    throw new Error('Method not implemented.');
+    console.log("on changes...")
   }
 
   ngOnInit(): void {
