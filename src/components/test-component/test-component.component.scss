@@ -1,0 +1,13 @@
+.content {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+app-navbar {
+    background-color: white;
+}
+
+app-footer {
+    margin-top: auto;
+}
