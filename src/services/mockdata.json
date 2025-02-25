@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "title": "Music Concert",
+    "description": "A live music concert featuring popular bands.",
+    "date": "2025-03-15",
+    "category": "Music",
+    "arranger": "Concerts Inc.",
+    "location": "Central Park, NY",
+    "image": "Malmö"
+  },
+  {
+    "id": 2,
+    "title": "Art Exhibition",
+    "description": "An exhibition showcasing contemporary art.",
+    "date": "2025-04-10",
+    "category": "Art",
+    "arranger": "Art Gallery",
+    "location": "Stockholm",
+    "image": "https://example.com/images/art.jpg"
+  },
+  {
+    "id": 3,
+    "title": "Tech Conference",
+    "description": "A conference discussing the latest in technology.",
+    "date": "2025-05-20",
+    "category": "Technology",
+    "arranger": "Tech World",
+    "location": "Malmö",
+    "image": "https://example.com/images/tech.jpg"
+  }
+]
