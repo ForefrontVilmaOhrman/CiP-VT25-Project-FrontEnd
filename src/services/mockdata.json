@@ -6,8 +6,8 @@
     "date": "2025-03-15",
     "category": "Music",
     "arranger": "Concerts Inc.",
-    "location": "Central Park, NY",
-    "image": "Malmö"
+    "location": "Malmö",
+    "image": "https://visitsweden.com/_next/image/?url=https%3A%2F%2Fs3-eu-north-1.amazonaws.com%3A443%2Fpy3.visitsweden.com%2Foriginal_images%2FMalmo_220922-3461_IBSweb.jpg&w=1980&q=40"
   },
   {
     "id": 2,
@@ -17,7 +17,7 @@
     "category": "Art",
     "arranger": "Art Gallery",
     "location": "Stockholm",
-    "image": "https://example.com/images/art.jpg"
+    "image": "https://images.prismic.io/bounce/Z08ng5bqstJ97_rb_is-stockholm-safe.jpg?auto=format%2Ccompress&ar=1.33%3A1&fit=crop"
   },
   {
     "id": 3,
@@ -27,6 +27,6 @@
     "category": "Technology",
     "arranger": "Tech World",
     "location": "Malmö",
-    "image": "https://example.com/images/tech.jpg"
+    "image": "https://visitsweden.com/_next/image/?url=https%3A%2F%2Fs3-eu-north-1.amazonaws.com%3A443%2Fpy3.visitsweden.com%2Foriginal_images%2FMalmo_220922-3461_IBSweb.jpg&w=1980&q=40"
   }
 ]

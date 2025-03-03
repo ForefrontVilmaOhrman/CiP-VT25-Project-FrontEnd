@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { RestService } from '../../services/rest.service';
 import { AppEvent } from '../../models/app-event';
 import { CommonModule } from '@angular/common';
@@ -10,15 +10,11 @@ import { CommonModule } from '@angular/common';
   templateUrl: './content-card.component.html',
   styleUrl: './content-card.component.scss'
 })
-export class ContentCardComponent implements OnInit {
+export class ContentCardComponent {
 
-  constructor(private restService: RestService) { }
+  constructor() { }
 
-  appEvents: AppEvent[] = []
-
-  ngOnInit(): void {
-    this.appEvents = this.restService.getData()
-    console.log(this.appEvents)
-  }
-
+  // Input with filtered appEvent data passed from the parent component.
+  @Input()
+  filteredEvents: AppEvent[] = []
 }

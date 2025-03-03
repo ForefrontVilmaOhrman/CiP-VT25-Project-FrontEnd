@@ -10,6 +10,10 @@ export class RestService {
   constructor() { }
 
   // Todo implement with real data when API is ready.
+  /**
+   * Fetches all the appEvents from the API.
+   * @returns the app event data from the api.
+   */
   getData(): AppEvent[] {
     return mockdata;
   }

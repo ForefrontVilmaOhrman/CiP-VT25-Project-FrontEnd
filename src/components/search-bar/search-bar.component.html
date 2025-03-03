@@ -1,0 +1,33 @@
+<!-- app-search.component.html -->
+<div class="search-container">
+  <form (ngSubmit)="onSearch()" #searchForm="ngForm">
+    <input
+      type="text"
+      name="name"
+      [(ngModel)]="searchParameters.title"
+      placeholder="Search by name"
+      class="search-input"
+    />
+    <select name="city" [(ngModel)]="searchParameters.location" class="search-input">
+      <option value="">Select a city</option>
+      <option value="">No filter</option>
+      <option value="Malmö">Malmö</option>
+      <option value="Stockholm">Stockholm</option>
+    </select>
+    <input
+      type="date"
+      name="date"
+      [(ngModel)]="searchParameters.startDate"
+      placeholder="Start date: "
+      class="search-input"
+    />
+    <input
+      type="date"
+      name="date"
+      [(ngModel)]="searchParameters.endDate"
+      placeholder="End date:"
+      class="search-input"
+    />
+    <button type="submit" (click)="onSearch()">Search</button>
+  </form>
+</div>
