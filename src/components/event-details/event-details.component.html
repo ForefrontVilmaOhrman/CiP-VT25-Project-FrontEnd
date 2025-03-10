@@ -1,0 +1,15 @@
+<div class="event-details-container">
+    <div class="event-details">
+      <div class="event-header">
+        <img [src]="appEvent?.image" alt="{{appEvent?.title}}" class="event-image">
+        <h1 class="event-title">{{appEvent?.title}}</h1>
+      </div>
+      <div class="event-info">
+        <p><strong>Arranger:</strong> {{appEvent?.arranger}}</p>
+        <p><strong>Category:</strong> {{appEvent?.category}}</p>
+        <p><strong>Date:</strong> {{appEvent?.date | date}}</p>
+        <p><strong>Location:</strong> {{appEvent?.location}}</p>
+        <p><strong>Description:</strong> {{appEvent?.description}}</p>
+      </div>
+    </div>
+  </div>
