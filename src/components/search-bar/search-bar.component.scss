@@ -1,0 +1,28 @@
+  .search-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 16px;
+  }
+
+  .search-input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 8px;
+}
+  
+  button {
+    padding: 8px 20px;
+    border: none;
+    border-radius: 4px;
+    background: rgb(62, 180, 137);
+    background: linear-gradient(159deg, rgba(62, 180, 137, 1) 0%, rgba(144, 238, 144, 1) 100%);
+    color: white;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background: rgb(62, 180, 137);
+    background: linear-gradient(159deg, rgba(62, 180, 137, 1) 0%, rgba(144, 238, 144, 1) 100%);
+  }

@@ -1,20 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router'; // Import the Router
-import mockdata from './mockdata.json';
+import { Router } from '@angular/router';
 import { AppEvent } from '../models/app-event';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NavigationService {
-
-  constructor(private router: Router) { }
+  constructor(private router: Router) {}
 
   /**
-   * Method to navigate to events. //TODO WIP still.
+   * Method to navigate to a specific event by ID.
    */
-  navigateToEvents(): void {
-    this.router.navigate(['/events']);
+  navigateToEvent(eventId: number): void {
+    this.router.navigate(['/event', eventId]);
   }
-
 }
