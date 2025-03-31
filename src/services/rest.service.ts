@@ -20,7 +20,7 @@ export class RestService {
    * @returns the app event data from the api.
    */
    async getData(): Promise<AppEvent[]> {
-    this.eventData = await firstValueFrom(this.httpClient.get<AppEvent[]>(Constants.API_URL + '/events'));
+    this.eventData = await firstValueFrom(this.httpClient.get<AppEvent[]>(Constants.API_URL + '/AppEvent'));
     return this.eventData;
   }
 }
