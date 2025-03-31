@@ -11,7 +11,7 @@ export class NavigationService {
   /**
    * Method to navigate to a specific event by ID.
    */
-  navigateToEvent(eventId: number): void {
+  navigateToEvent(eventId: string): void {
     this.router.navigate(['/event', eventId]);
   }
 }

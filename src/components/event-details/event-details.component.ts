@@ -17,9 +17,9 @@ export class EventDetailsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private restService: RestService) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<any> {
     const eventId = this.route.snapshot.paramMap.get('id'); // Use this ID to fetch data about event. Maybe local storage check before getting?
-    this.appEvent = this.restService.getData()[0];
-    console.log(this.appEvent)
+    const allAppEvents: AppEvent[] = await this.restService.getData();
+    this.appEvent = allAppEvents.find(event => event.id === eventId)
   }
 }

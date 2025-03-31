@@ -34,8 +34,8 @@ export class TestComponentComponent implements OnInit {
   /**
    * Runs when the component loads and fetches the initial data for the view.
    */
-  ngOnInit(): void {
-    this.appEvents = this.restService.getData();
+  async ngOnInit(): Promise<void> {
+    this.appEvents = await this.restService.getData();
     // Set filtered events value to app events on first load because user hasn't filtered yet.
     this.filteredEvents = this.appEvents;
   }

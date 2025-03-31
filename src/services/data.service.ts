@@ -21,10 +21,9 @@ export class DataService {
       const matchesName = searchParameters.title
         ? event.title.toLowerCase().includes(searchParameters.title.toLowerCase())
         : true; // If title is empty, do not filter by title
-
       // Check if the location (city) is provided and matches
       const matchesCity = searchParameters.location
-        ? event.location.toLowerCase().includes(searchParameters.location.toLowerCase())
+        ? event.location?.toLowerCase().includes(searchParameters.location.toLowerCase())
         : true; // If location is empty, do not filter by location
 
       // Date range check: If startDate or endDate is provided, filter by date range
