@@ -1,4 +1,10 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { FooterComponent } from '../footer/footer.component';
 import { ContentCardComponent } from '../content-card/content-card.component';
@@ -11,12 +17,15 @@ import { DataService } from '../../services/data.service';
 @Component({
   selector: 'app-test-component',
   standalone: true,
-  imports: [NavbarComponent, FooterComponent, ContentCardComponent, SearchBarComponent],
+  imports: [ContentCardComponent, SearchBarComponent],
   templateUrl: './test-component.component.html',
-  styleUrl: './test-component.component.scss'
+  styleUrl: './test-component.component.scss',
 })
 export class TestComponentComponent implements OnInit {
-  constructor(private restService: RestService, private dataService: DataService) {}
+  constructor(
+    private restService: RestService,
+    private dataService: DataService,
+  ) {}
 
   // Array to hold all events
   appEvents: AppEvent[] = [];
@@ -28,7 +37,10 @@ export class TestComponentComponent implements OnInit {
    * Listen to the search parameters from the search-bar.component and filter appEvents based on them
    */
   onSearchParametersChanged(searchParams: SearchParameters): void {
-    this.filteredEvents = this.dataService.filterEvents(searchParams, this.appEvents);
+    this.filteredEvents = this.dataService.filterEvents(
+      searchParams,
+      this.appEvents,
+    );
   }
 
   /**
