@@ -14,4 +14,11 @@ export class NavigationService {
   navigateToEvent(eventId: string): void {
     this.router.navigate(['/event', eventId]);
   }
+  
+  /**
+   * Method to navigate to the homepage.
+   */
+  navigateToHomepage(): void {
+    this.router.navigate(['/']);
+  }
 }
