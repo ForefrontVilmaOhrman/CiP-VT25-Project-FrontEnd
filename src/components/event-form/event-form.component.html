@@ -1,0 +1,21 @@
+<form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
+  <label for="title">Title:</label>
+  <input id="title" type="text" formControlName="title" />
+
+  <label for="description">Description:</label>
+  <input id="description" type="text" formControlName="description" />
+
+  <label for="category">Category:</label>
+  <input id="category" type="text" formControlName="category" />
+
+  <label for="arranger">Arranger:</label>
+  <input id="arranger" type="text" formControlName="arranger" />
+
+  <label for="location">Location:</label>
+  <input id="location" type="text" formControlName="location" />
+
+  <label for="image">Image (URL or filename):</label>
+  <input id="image" type="text" formControlName="image" />
+
+  <button type="submit">Submit</button>
+</form>
