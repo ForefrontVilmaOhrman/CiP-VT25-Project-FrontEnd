@@ -1,6 +1,6 @@
 <div class="content">
-    <app-navbar/>
-    <app-search-bar (searchParametersChanged)="onSearchParametersChanged($event)"/>
-    <app-content-card [filteredEvents]="filteredEvents"/>
-    <app-footer/>
+  <app-search-bar
+    (searchParametersChanged)="onSearchParametersChanged($event)"
+  />
+  <app-content-card [filteredEvents]="filteredEvents" />
 </div>

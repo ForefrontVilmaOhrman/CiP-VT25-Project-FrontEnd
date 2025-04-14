@@ -12,8 +12,8 @@ import { CommonModule } from '@angular/common';
 export class EventFormComponent {
   eventForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
-    this.eventForm = this.fb.group({
+  constructor(private formBuilder: FormBuilder) {
+    this.eventForm = this.formBuilder.group({
       title: [''],
       description: [''],
       category: [''],
