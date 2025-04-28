@@ -15,13 +15,13 @@ import { SearchParameters } from '../../models/search-params';
 import { DataService } from '../../services/data.service';
 
 @Component({
-  selector: 'app-test-component',
+  selector: 'app-main-component',
   standalone: true,
   imports: [ContentCardComponent, SearchBarComponent],
-  templateUrl: './test-component.component.html',
-  styleUrl: './test-component.component.scss',
+  templateUrl: './main-component.component.html',
+  styleUrl: './main-component.component.scss',
 })
-export class TestComponentComponent implements OnInit {
+export class MainComponentComponent implements OnInit {
   constructor(
     private restService: RestService,
     private dataService: DataService,
