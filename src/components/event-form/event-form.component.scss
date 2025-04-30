@@ -1,0 +1,20 @@
+.form-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.form-container > * {
+  width: 80%; /* Make all child elements 80% of the container's width */
+  max-width: 600px; /* Optional: Set a maximum width for better responsiveness */
+  margin-bottom: 20px; /* Add spacing between elements */
+}
+
+#submit {
+  background: rgb(62, 180, 137);
+  background: linear-gradient(
+    159deg,
+    rgba(62, 180, 137, 1) 0%,
+    rgba(144, 238, 144, 1) 100%
+  );
+}

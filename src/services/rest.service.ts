@@ -34,4 +34,12 @@ export class RestService {
       this.httpClient.delete<void>(`${Constants.API_URL}/AppEvent/${eventId}`)
     );
   }
+
+  async createEvent(data: any): Promise<void> {
+    // Create an event
+    console.log('Creating event with data:', data);
+    await firstValueFrom(
+      this.httpClient.post<void>(`${Constants.API_URL}/AppEvent`, data)
+    );
+  }
 }
