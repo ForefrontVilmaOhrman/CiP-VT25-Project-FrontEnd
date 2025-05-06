@@ -23,6 +23,7 @@ export class EventFormComponent {
       arranger: ['', Validators.required],
       location: ['', Validators.required],
       image: ['', Validators.required],
+      date: ['', Validators.required]
     });
   }
 
