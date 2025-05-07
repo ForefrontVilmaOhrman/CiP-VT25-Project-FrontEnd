@@ -1,0 +1,24 @@
+/* image-upload.component.scss */
+:host {
+  display: block;
+  width: 100%;
+}
+
+/* Add glow effect to the upload buttons */
+button {
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 15px rgba(219, 39, 119, 0.5);
+  }
+}
+
+/* Add a subtle scale effect on hover for the image */
+img {
+  transition: transform 0.5s ease;
+
+  &:hover + .absolute {
+    opacity: 1;
+  }
+}

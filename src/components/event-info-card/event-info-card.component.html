@@ -1,0 +1,54 @@
+<div
+  [formGroup]="form"
+  class="p-4 rounded-2xl shadow-lg text-white bg-sky-500/10"
+>
+  <div>
+    <div class="flex items-center gap-3">
+      <div
+        class="bg-pink-700 w-10 h-10 flex items-center justify-center rounded-full text-lg font-bold"
+      >
+        {{ icon || form.get("title")?.value?.[0] || "" }}
+      </div>
+      <div class="flex flex-col">
+        <input
+          id="title"
+          type="text"
+          formControlName="title"
+          placeholder="{{ placeholder }}"
+          class="bg-transparent text-lg font-semibold text-white focus:outline-none focus:ring-2 focus:ring-pink-400"
+        />
+        <div class="text-sm">{{ subTitle }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Validation -->
+  <div
+    *ngIf="form.get('arranger')?.invalid && form.get('arranger')?.touched"
+    class="text-red-400 text-xs mt-1"
+  >
+    Required
+  </div>
+
+  <hr class="my-4" />
+
+  <!-- Description -->
+  <div>
+    <textarea
+      id="description"
+      formControlName="description"
+      rows="3"
+      class="w-full px-3 py-2 rounded outline-none focus:ring-2 focus:ring-pink-400 resize-none text-center bg-transparent placeholder-white"
+      placeholder="{{ placeholder }}"
+    >
+    </textarea>
+    <div
+      *ngIf="
+        form.get('description')?.invalid && form.get('description')?.touched
+      "
+      class="text-red-400 text-xs mt-1"
+    >
+      Required
+    </div>
+  </div>
+</div>
