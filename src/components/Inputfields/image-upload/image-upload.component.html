@@ -1,29 +1,17 @@
-<!-- image-upload.component.html with fixed height -->
 <div class="w-full h-70 rounded-3xl overflow-hidden">
-  <!-- Preview container (always visible) -->
   <div class="relative w-full h-full">
-    <!-- Image preview shown when image is selected -->
     <div class="absolute inset-0">
-      <img
-        [src]="previewUrl"
-        alt="Event image"
-        class="w-full h-full object-cover"
-      />
+      <img class="w-full h-full object-cover" />
     </div>
 
-    <!-- Upload UI (shown with transparency when image exists, or fully visible when no image) -->
     <div class="absolute inset-0 flex flex-col items-center justify-center p-6">
-      <!-- "Choose an image" text -->
       <h3
         class="text-white text-2xl font-medium mb-6 text-center transition-opacity"
       >
         {{ previewUrl ? "Change image" : "Choose an image" }}
       </h3>
 
-      <!-- Upload buttons -->
       <div class="flex items-center justify-center gap-6">
-        <!-- Gallery upload button -->
-
         <button
           type="button"
           (click)="triggerGalleryClick()"
