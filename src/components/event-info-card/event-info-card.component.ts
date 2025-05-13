@@ -22,11 +22,17 @@ export class EventInfoCardComponent {
   }
 
   @Input() subTitle: string = '';
-  @Input() placeholder: string = '';
+  @Input() placeholderTitle: string = '';
+  @Input() placeholderTextArea: string = '';
+
   @Input() title: string = '';
   @Input() description: string = '';
   @Input() category: string = '';
   @Input() icon: string = '';
+
+  @Input() formGroup!: FormGroup;
+  @Input() formControlHeader: string = '';
+  @Input() formControlTextArea: string = '';
 
   @Output() save = new EventEmitter<{
     title: string;

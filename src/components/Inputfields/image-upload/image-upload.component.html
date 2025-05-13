@@ -1,14 +1,42 @@
 <div class="w-full h-70 rounded-3xl overflow-hidden">
   <div class="relative w-full h-full">
     <div class="absolute inset-0">
-      <img class="w-full h-full object-cover" />
+      <div class="bg-sky-100/20 w-full h-full" *ngIf="!previewUrl"></div>
+      <img
+        [src]="previewUrl"
+        alt="Event image"
+        class="w-full h-full object-cover"
+      />
     </div>
+    <button
+      type="button"
+      (click)="triggerGalleryClick()"
+      class="absolute top-4 right-4 bg-pink-600 z-10 hover:bg-pink-700 text-white p-2 rounded-full shadow-md transition"
+      aria-label="Change image"
+      *ngIf="previewUrl"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="size-4"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125"
+        />
+      </svg>
+    </button>
 
     <div class="absolute inset-0 flex flex-col items-center justify-center p-6">
       <h3
         class="text-white text-2xl font-medium mb-6 text-center transition-opacity"
+        *ngIf="!previewUrl"
       >
-        {{ previewUrl ? "Change image" : "Choose an image" }}
+        Choose an image
       </h3>
 
       <div class="flex items-center justify-center gap-6">
@@ -16,6 +44,8 @@
           type="button"
           (click)="triggerGalleryClick()"
           class="bg-pink-600 rounded-full w-14 h-14 flex items-center justify-center shadow-lg hover:bg-pink-700 transition"
+          *ngIf="!previewUrl"
+          aria-label="Upload image"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

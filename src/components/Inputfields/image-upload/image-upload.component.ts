@@ -1,4 +1,4 @@
-// image-upload.component.ts
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
@@ -6,6 +6,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
   selector: 'app-image-upload',
   templateUrl: './image-upload.component.html',
   styleUrls: ['./image-upload.component.scss'],
+  imports: [CommonModule],
   standalone: true,
 })
 export class ImageUploadComponent {
@@ -16,7 +17,6 @@ export class ImageUploadComponent {
 
   constructor(private sanitizer: DomSanitizer) {}
 
-  // Method triggered when file is selected from gallery
   onFileSelected(event: any): void {
     const file = event.target.files[0];
     if (file && this.isValidImage(file)) {
@@ -25,12 +25,10 @@ export class ImageUploadComponent {
     }
   }
 
-  // Method to validate image file type
   private isValidImage(file: File): boolean {
     return file.type.startsWith('image/');
   }
 
-  // Method to create a preview URL
   private createImagePreview(file: File): void {
     const reader = new FileReader();
     reader.onload = () => {
@@ -41,13 +39,7 @@ export class ImageUploadComponent {
     reader.readAsDataURL(file);
   }
 
-  // Method to trigger file input click from gallery button
   triggerGalleryClick(): void {
     document.getElementById('gallery-upload')?.click();
-  }
-
-  // Method to trigger camera/upload from cloud button
-  triggerCloudUpload(): void {
-    document.getElementById('cloud-upload')?.click();
   }
 }

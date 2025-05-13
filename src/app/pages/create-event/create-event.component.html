@@ -1,8 +1,12 @@
-<div class="event-details-container">
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto p-6 pt-0">
+<div class="event-details-container form-container">
+  <form
+    [formGroup]="eventForm"
+    (ngSubmit)="onSubmit()"
+    class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto p-6 pt-0"
+  >
     <app-tool-bar class="md:col-span-3"></app-tool-bar>
 
-    <div class="md:col-span-3 flex flex-col md:flex-row gap-6">
+    <div class="md:col-span-3 flex flex-col md:flex-row gap-6 form-container">
       <app-event-main-info-card
         class="card-base w-full"
       ></app-event-main-info-card>
@@ -12,12 +16,20 @@
           <app-event-info-card
             [title]="'Your Name'"
             [subTitle]="'Arrangers note'"
-            [placeholder]="'Tell the guests about your event'"
+            [placeholderTitle]="'Your Name'"
+            [placeholderTextArea]="'Tell the guests about your event'"
+            [formGroup]="eventForm"
+            [formControlHeader]="'arranger'"
+            [formControlTextArea]="'description'"
           ></app-event-info-card>
           <app-event-info-card
             [title]="'Add Category'"
             [subTitle]="'Ex. Birthday, After Work'"
-            [placeholder]="'Add additional info if needed'"
+            [placeholderTitle]="'Add Category'"
+            [placeholderTextArea]="'Tell the guests about your event'"
+            [formGroup]="eventForm"
+            [formControlHeader]="'category'"
+            [formControlTextArea]="'category'"
             [icon]="'🗂'"
           ></app-event-info-card>
         </div>
@@ -25,11 +37,14 @@
           <app-event-info-card
             [title]="'RSVP'"
             [subTitle]="'Date and time'"
-            [placeholder]="'Add a RSVP note'"
+            [placeholderTitle]="'RSVP'"
+            [placeholderTextArea]="'Add a RSVP note'"
+            [formGroup]="eventForm"
+            [formControlTextArea]="'RSVPNote'"
             [icon]="'🛎'"
           ></app-event-info-card>
         </div>
       </div>
     </div>
-  </div>
+  </form>
 </div>
