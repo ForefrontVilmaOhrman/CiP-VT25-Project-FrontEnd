@@ -25,7 +25,7 @@ export class EventInfoCardComponent {
   @Input() placeholderTitle: string = '';
   @Input() placeholderTextArea: string = '';
 
-  @Input() title: string = '';
+  @Input() infoCardtitle: string = '';
   @Input() description: string = '';
   @Input() category: string = '';
   @Input() icon: string = '';
@@ -50,7 +50,7 @@ export class EventInfoCardComponent {
 
   ngOnInit() {
     this.form.patchValue({
-      title: this.title,
+      title: this.infoCardtitle,
       description: this.description,
     });
   }

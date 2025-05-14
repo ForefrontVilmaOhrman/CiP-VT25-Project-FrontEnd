@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -18,9 +18,13 @@ export class DatePickerComponent implements OnInit {
   form!: FormGroup;
   formattedDate: string = 'Date and Time';
 
+  @Input() initialDate: string = '';
+
+  @Output() dateChange = new EventEmitter<string>();
+
   ngOnInit() {
     this.form = new FormGroup({
-      date: new FormControl('', Validators.required),
+      date: new FormControl(this.initialDate, Validators.required),
     });
 
     this.form.get('date')?.valueChanges.subscribe((value) => {
@@ -32,10 +36,23 @@ export class DatePickerComponent implements OnInit {
           month: 'short',
           day: 'numeric',
         });
+
+        this.dateChange.emit(value);
       } else {
         this.formattedDate = 'Date and Time';
+        this.dateChange.emit('');
       }
     });
+
+    if (this.initialDate) {
+      const date = new Date(this.initialDate);
+      this.formattedDate = date.toLocaleDateString('en-US', {
+        weekday: 'short',
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+      });
+    }
   }
 
   clearDate() {

@@ -36,16 +36,13 @@ export class CreateEventComponent {
     private navigationService: NavigationService,
   ) {
     this.eventForm = this.formBuilder.group({
-      title: ['TEST'],
+      title: [''],
       description: [''],
       category: ['', Validators.required],
       arranger: ['', Validators.required],
-      location: ['Stockholm', Validators.required],
-      image: [
-        'https://code.org/images/dance-hoc/dance-party-activity-ai-edition.png',
-        Validators.required,
-      ],
-      date: ['2025-05-08T09:54:57.236Z', Validators.required],
+      location: ['', Validators.required],
+      image: ['', Validators.required],
+      date: ['', Validators.required],
     });
   }
 
@@ -56,6 +53,7 @@ export class CreateEventComponent {
     } else {
       this.validationError = true;
       this.eventForm.markAllAsTouched();
+      console.log('Form is invalid. Please check the input fields.');
     }
     console.log('Saved event data:', this.eventForm.value);
   }

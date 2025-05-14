@@ -28,7 +28,6 @@ export class RestService {
    * @param eventId The id of the event to delete
    */
   async deleteEvent(eventId: String): Promise<void> {
-    // Delete an event
     console.log('Deleting event with id:', eventId);
     await firstValueFrom(
       this.httpClient.delete<void>(`${Constants.API_URL}/AppEvents/${eventId}`),
@@ -36,7 +35,6 @@ export class RestService {
   }
 
   async createEvent(data: any): Promise<void> {
-    // Create an event
     console.log('Creating event with data:', data);
     await firstValueFrom(
       this.httpClient.post<void>(`${Constants.API_URL}/AppEvents`, data),

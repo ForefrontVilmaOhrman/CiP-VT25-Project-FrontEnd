@@ -1,6 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { DatePickerComponent } from '../Inputfields/date-picker/date-picker.component';
 import { ImageUploadComponent } from '../Inputfields/image-upload/image-upload.component';
 
@@ -16,16 +21,21 @@ import { ImageUploadComponent } from '../Inputfields/image-upload/image-upload.c
   templateUrl: './event-main-info-card.component.html',
   styleUrl: './event-main-info-card.component.scss',
 })
-export class EventMainInfoCardComponent {
-  title = 'Event Title';
-  date = 'Date and Time';
-  location = 'Location';
-  image = 'Image URL';
+export class EventMainInfoCardComponent implements OnInit {
   isEditing = false;
 
   toggleEdit() {
     this.isEditing = !this.isEditing;
   }
+
+  @Input() title: string = '';
+  @Input() location: string = '';
+  @Input() image: string = '';
+  @Input() date: string = '';
+
+  @Input() formGroup!: FormGroup;
+  @Input() formControlHeader: string = '';
+  @Input() formControlSubTitle: string = '';
 
   @Output() save = new EventEmitter<{
     title: string;
@@ -38,27 +48,50 @@ export class EventMainInfoCardComponent {
 
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
-      title: [''],
-      date: [''],
-      location: [''],
-      image: [''],
+      title: ['', Validators.required],
+      location: ['', Validators.required],
     });
   }
 
   ngOnInit() {
-    this.form.patchValue({
-      title: this.title,
-      date: this.date,
-      location: this.location,
-      image: this.image,
-    });
+    if (this.formGroup) {
+      const headerControl = this.formGroup.get(this.formControlHeader);
+      const subtitleControl = this.formGroup.get(this.formControlSubTitle);
+      const dateControl = this.formGroup.get('date');
+      const imageControl = this.formGroup.get('image');
+
+      if (headerControl) headerControl.setValue(this.title);
+      if (subtitleControl) subtitleControl.setValue(this.location);
+      if (dateControl) dateControl.setValue(this.date);
+      if (imageControl) imageControl.setValue(this.image);
+    } else {
+      console.error('Parent form is not provided to the component');
+    }
+  }
+
+  onDateChange(dateValue: string) {
+    if (this.formGroup) {
+      const dateControl = this.formGroup.get('date');
+      if (dateControl) {
+        dateControl.setValue(dateValue);
+      }
+    }
   }
 
   onSave() {
-    if (this.form.valid) {
-      this.save.emit(this.form.value);
-    } else {
-      this.form.markAllAsTouched();
+    if (this.formGroup && this.formGroup.valid) {
+      const formValues = {
+        title: this.formGroup.get(this.formControlHeader)?.value,
+        location: this.formGroup.get(this.formControlSubTitle)?.value,
+        date: this.formGroup.get('date')?.value,
+        image: this.formGroup.get('image')?.value,
+      };
+
+      this.save.emit(formValues);
+    } else if (this.formGroup) {
+      Object.keys(this.formGroup.controls).forEach((key) => {
+        this.formGroup.get(key)?.markAsTouched();
+      });
     }
   }
 }
