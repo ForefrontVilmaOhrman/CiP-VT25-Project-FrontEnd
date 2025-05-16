@@ -10,10 +10,11 @@
       <app-event-main-info-card
         class="card-base w-full"
         [formGroup]="eventForm"
-        [formControlHeader]="'title'"
-        [formControlSubTitle]="'location'"
-        [title]="'Event title'"
-        [location]="'Location'"
+        [formControlTitleMain]="'Event Name'"
+        [formControlLocation]="'location'"
+        [placeholderEventTitle]="'title'"
+        [locationPlaceholder]="'Location'"
+        [location]="''"
       ></app-event-main-info-card>
 
       <div class="flex flex-row gap-6 w-full">
@@ -24,8 +25,8 @@
             [placeholderTitle]="'Your Name'"
             [placeholderTextArea]="'Tell the guests about your event'"
             [formGroup]="eventForm"
-            [formControlHeader]="'arranger'"
-            [formControlTextArea]="'description'"
+            [formControlTitle]="'arranger'"
+            [formControlDescription]="'description'"
           ></app-event-info-card>
           <app-event-info-card
             [infoCardtitle]="'Add Category'"
@@ -33,8 +34,8 @@
             [placeholderTitle]="'Add Category'"
             [placeholderTextArea]="'Tell the guests about your event'"
             [formGroup]="eventForm"
-            [formControlHeader]="'category'"
-            [formControlTextArea]="'category'"
+            [formControlTitle]="'category'"
+            [formControlDescription]="'category'"
             [icon]="'🗂'"
           ></app-event-info-card>
         </div>
@@ -42,10 +43,10 @@
           <app-event-info-card
             [infoCardtitle]="'RSVP'"
             [subTitle]="'Date and time'"
-            [placeholderTitle]="'RSVP'"
+            [placeholderTitle]="''"
             [placeholderTextArea]="'Add a RSVP note'"
             [formGroup]="eventForm"
-            [formControlTextArea]="'rsvp'"
+            [formControlDescription]="'rsvp'"
             [icon]="'🛎'"
           ></app-event-info-card>
         </div>

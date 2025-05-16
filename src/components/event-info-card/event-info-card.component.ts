@@ -31,35 +31,24 @@ export class EventInfoCardComponent {
   @Input() icon: string = '';
 
   @Input() formGroup!: FormGroup;
-  @Input() formControlHeader: string = '';
-  @Input() formControlTextArea: string = '';
 
-  @Output() save = new EventEmitter<{
-    title: string;
-    description: string;
-  }>();
-
-  form: FormGroup;
-
-  constructor(private fb: FormBuilder) {
-    this.form = this.fb.group({
-      title: ['', Validators.required],
-      description: ['', Validators.required],
-    });
-  }
+  @Input() formControlTitle: string = 'title';
+  @Input() formControlDescription: string = 'description';
 
   ngOnInit() {
-    this.form.patchValue({
-      title: this.infoCardtitle,
-      description: this.description,
-    });
-  }
+    if (this.formGroup) {
+      const titleControl = this.formGroup.get(this.formControlTitle);
+      const descriptionControl = this.formGroup.get(
+        this.formControlDescription,
+      );
 
-  onSave() {
-    if (this.form.valid) {
-      this.save.emit(this.form.value);
-    } else {
-      this.form.markAllAsTouched();
+      if (titleControl && this.infoCardtitle) {
+        titleControl.setValue(this.infoCardtitle);
+      }
+
+      if (descriptionControl && this.description) {
+        descriptionControl.setValue(this.description);
+      }
     }
   }
 }

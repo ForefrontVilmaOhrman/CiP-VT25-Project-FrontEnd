@@ -30,42 +30,28 @@ export class EventMainInfoCardComponent implements OnInit {
 
   @Input() title: string = '';
   @Input() location: string = '';
-  @Input() image: string = '';
+  @Input() image: string =
+    'https://cipvt25storage.blob.core.windows.net/images/DancepartyBlue.png'; /// Hardcoded this untill the blob-storage integration is set-up
   @Input() date: string = '';
+  @Input() placeholderEventTitle: string = '';
+  @Input() locationPlaceholder: string = '';
 
   @Input() formGroup!: FormGroup;
-  @Input() formControlHeader: string = '';
-  @Input() formControlSubTitle: string = '';
-
-  @Output() save = new EventEmitter<{
-    title: string;
-    date: Date;
-    location: string;
-    image: string;
-  }>();
-
-  form: FormGroup;
-
-  constructor(private fb: FormBuilder) {
-    this.form = this.fb.group({
-      title: ['', Validators.required],
-      location: ['', Validators.required],
-    });
-  }
+  @Input() formControlTitleMain: string = 'title';
+  @Input() formControlLocation: string = 'location';
 
   ngOnInit() {
     if (this.formGroup) {
-      const headerControl = this.formGroup.get(this.formControlHeader);
-      const subtitleControl = this.formGroup.get(this.formControlSubTitle);
+      const titleControl = this.formGroup.get(this.formControlTitleMain);
+      const locationControl = this.formGroup.get(this.formControlLocation);
       const dateControl = this.formGroup.get('date');
       const imageControl = this.formGroup.get('image');
 
-      if (headerControl) headerControl.setValue(this.title);
-      if (subtitleControl) subtitleControl.setValue(this.location);
-      if (dateControl) dateControl.setValue(this.date);
-      if (imageControl) imageControl.setValue(this.image);
-    } else {
-      console.error('Parent form is not provided to the component');
+      if (titleControl && this.title) titleControl.setValue(this.title);
+      if (locationControl && this.location)
+        locationControl.setValue(this.location);
+      if (dateControl && this.date) dateControl.setValue(this.date);
+      if (imageControl && this.image) imageControl.setValue(this.image);
     }
   }
 
@@ -75,23 +61,6 @@ export class EventMainInfoCardComponent implements OnInit {
       if (dateControl) {
         dateControl.setValue(dateValue);
       }
-    }
-  }
-
-  onSave() {
-    if (this.formGroup && this.formGroup.valid) {
-      const formValues = {
-        title: this.formGroup.get(this.formControlHeader)?.value,
-        location: this.formGroup.get(this.formControlSubTitle)?.value,
-        date: this.formGroup.get('date')?.value,
-        image: this.formGroup.get('image')?.value,
-      };
-
-      this.save.emit(formValues);
-    } else if (this.formGroup) {
-      Object.keys(this.formGroup.controls).forEach((key) => {
-        this.formGroup.get(key)?.markAsTouched();
-      });
     }
   }
 }
