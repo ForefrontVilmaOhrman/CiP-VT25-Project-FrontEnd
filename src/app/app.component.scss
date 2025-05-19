@@ -1,0 +1,17 @@
+/* Make the app root a flex column to push footer down */
+:host {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Make router-outlet take available space */
+router-outlet {
+  flex: 1 0 auto;
+  display: flex;
+}
+
+/* Footer stays at the bottom */
+app-footer {
+  flex-shrink: 0;
+}
