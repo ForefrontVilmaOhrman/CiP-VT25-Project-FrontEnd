@@ -1,13 +1,12 @@
 .content {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    align-items: center; // Center children horizontally
+    margin-top: 24px; // Add space below navbar
+    width: 100%;
+    min-height: 70vh; // Ensure content area takes up space
 }
 
 app-navbar {
     background-color: white;
-}
-
-app-footer {
-    margin-top: auto;
 }
