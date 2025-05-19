@@ -43,6 +43,7 @@ export class CreateEventComponent {
       location: ['', Validators.required],
       image: ['', Validators.required],
       date: ['', Validators.required],
+      rsvp: [''],
     });
   }
 
