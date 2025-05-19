@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RestService } from '../../services/rest.service';
 import { NavigationService } from '../../services/navigation.service';
@@ -15,7 +20,11 @@ export class EventFormComponent {
   eventForm: FormGroup;
   validationError: boolean = false;
 
-  constructor(private formBuilder: FormBuilder, private restService: RestService, private navigationService: NavigationService) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private restService: RestService,
+    private navigationService: NavigationService,
+  ) {
     this.eventForm = this.formBuilder.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
@@ -23,7 +32,7 @@ export class EventFormComponent {
       arranger: ['', Validators.required],
       location: ['', Validators.required],
       image: ['', Validators.required],
-      date: ['', Validators.required]
+      date: ['', Validators.required],
     });
   }
 
