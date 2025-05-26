@@ -38,15 +38,14 @@ export class EventInfoCardComponent {
   ngOnInit() {
     if (this.formGroup) {
       const titleControl = this.formGroup.get(this.formControlTitle);
-      const descriptionControl = this.formGroup.get(
-        this.formControlDescription,
-      );
+      const descriptionControl = this.formGroup.get(this.formControlDescription);
 
-      if (titleControl && this.infoCardtitle) {
+      // Only set the form control value if infoCardtitle is provided, the control is not already set, and the control is not 'title'
+      if (titleControl && this.infoCardtitle && !titleControl.value && this.formControlTitle !== 'title') {
         titleControl.setValue(this.infoCardtitle);
       }
 
-      if (descriptionControl && this.description) {
+      if (descriptionControl && this.description && !descriptionControl.value) {
         descriptionControl.setValue(this.description);
       }
     }
