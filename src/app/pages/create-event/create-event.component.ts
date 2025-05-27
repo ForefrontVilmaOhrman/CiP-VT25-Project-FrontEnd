@@ -41,7 +41,10 @@ export class CreateEventComponent {
       category: ['', Validators.required],
       arranger: ['', Validators.required],
       location: ['', Validators.required],
-      image: ['', Validators.required],
+      image: [
+        'https://cipvt25storage.blob.core.windows.net/images/DancepartyBlue.png',
+        Validators.required,
+      ],
       date: ['', Validators.required],
       rsvp: [''],
     });

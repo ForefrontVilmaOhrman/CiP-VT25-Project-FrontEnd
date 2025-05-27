@@ -1,11 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { Component, Input } from '@angular/core';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { DatePickerComponent } from '../Inputfields/date-picker/date-picker.component';
 import { ImageUploadComponent } from '../Inputfields/image-upload/image-upload.component';
 
@@ -21,39 +16,25 @@ import { ImageUploadComponent } from '../Inputfields/image-upload/image-upload.c
   templateUrl: './event-main-info-card.component.html',
   styleUrl: './event-main-info-card.component.scss',
 })
-export class EventMainInfoCardComponent implements OnInit {
+export class EventMainInfoCardComponent {
   isEditing = false;
 
   toggleEdit() {
     this.isEditing = !this.isEditing;
   }
 
-  @Input() title: string = '';
-  @Input() location: string = '';
-  @Input() image: string =
-    'https://cipvt25storage.blob.core.windows.net/images/DancepartyBlue.png'; /// Hardcoded this untill the blob-storage integration is set-up
-  @Input() date: string = '';
+  @Input() mainCardTitle: string = ''; // Card heading/title
   @Input() placeholderEventTitle: string = '';
   @Input() locationPlaceholder: string = '';
-
   @Input() formGroup!: FormGroup;
   @Input() formControlTitleMain: string = 'title';
   @Input() formControlLocation: string = 'location';
+  @Input() date: string = '';
 
-  ngOnInit() {
-    if (this.formGroup) {
-      const titleControl = this.formGroup.get(this.formControlTitleMain);
-      const locationControl = this.formGroup.get(this.formControlLocation);
-      const dateControl = this.formGroup.get('date');
-      const imageControl = this.formGroup.get('image');
+  @Input() image: string =
+    'https://cipvt25storage.blob.core.windows.net/images/DancepartyBlue.png';
 
-      if (titleControl && this.title) titleControl.setValue(this.title);
-      if (locationControl && this.location)
-        locationControl.setValue(this.location);
-      if (dateControl && this.date) dateControl.setValue(this.date);
-      if (imageControl && this.image) imageControl.setValue(this.image);
-    }
-  }
+  // No need to set form values from inputs; let the form handle its own state
 
   onDateChange(dateValue: string) {
     if (this.formGroup) {
