@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EventFormComponent } from './event-form.component';
+import { NavLinkComponent } from './nav-link.component';
 
-describe('EventFormComponent', () => {
-  let component: EventFormComponent;
-  let fixture: ComponentFixture<EventFormComponent>;
+describe('NavLinkComponent', () => {
+  let component: NavLinkComponent;
+  let fixture: ComponentFixture<NavLinkComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EventFormComponent]
+      imports: [NavLinkComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(EventFormComponent);
+    fixture = TestBed.createComponent(NavLinkComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

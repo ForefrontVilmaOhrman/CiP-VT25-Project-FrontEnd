@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { DatePickerComponent } from '../Inputfields/date-picker/date-picker.component';
 import { ImageUploadComponent } from '../Inputfields/image-upload/image-upload.component';
@@ -23,7 +23,9 @@ export class EventMainInfoCardComponent {
     this.isEditing = !this.isEditing;
   }
 
-  @Input() mainCardTitle: string = ''; // Card heading/title
+  @Output() imageSelected = new EventEmitter<File>();
+
+  @Input() mainCardTitle: string = '';
   @Input() placeholderEventTitle: string = '';
   @Input() locationPlaceholder: string = '';
   @Input() formGroup!: FormGroup;
@@ -31,10 +33,9 @@ export class EventMainInfoCardComponent {
   @Input() formControlLocation: string = 'location';
   @Input() date: string = '';
 
-  @Input() image: string =
-    'https://cipvt25storage.blob.core.windows.net/images/DancepartyBlue.png';
-
-  // No need to set form values from inputs; let the form handle its own state
+  onImageSelected(file: File): void {
+    this.imageSelected.emit(file);
+  }
 
   onDateChange(dateValue: string) {
     if (this.formGroup) {

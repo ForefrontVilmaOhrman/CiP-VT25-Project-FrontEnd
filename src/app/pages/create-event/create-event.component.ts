@@ -11,6 +11,7 @@ import {
 } from '@angular/forms';
 import { RestService } from '../../../services/rest.service';
 import { NavigationService } from '../../../services/navigation.service';
+import { ImageUploadComponent } from '../../../components/Inputfields/image-upload/image-upload.component';
 
 @Component({
   selector: 'app-create-event',
@@ -29,6 +30,7 @@ import { NavigationService } from '../../../services/navigation.service';
 export class CreateEventComponent {
   eventForm: FormGroup;
   validationError: boolean = false;
+  selectedImageFile: File | null = null;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -41,18 +43,37 @@ export class CreateEventComponent {
       category: ['', Validators.required],
       arranger: ['', Validators.required],
       location: ['', Validators.required],
-      image: [
-        'https://cipvt25storage.blob.core.windows.net/images/DancepartyBlue.png',
-        Validators.required,
-      ],
       date: ['', Validators.required],
       rsvp: [''],
     });
   }
 
+  onImageSelected(file: File): void {
+    this.selectedImageFile = file;
+    console.log('Image selected in CreateEvent:', file.name);
+  }
+
   async onSubmit() {
     if (this.eventForm.valid) {
-      await this.restService.createEvent(this.eventForm.value);
+      const formData = new FormData();
+      const formValues = this.eventForm.value;
+
+      formData.append('Title', formValues.title || '');
+      formData.append('Description', formValues.description || '');
+      formData.append('Category', formValues.category || '');
+      formData.append('Arranger', formValues.arranger || '');
+      formData.append('Location', formValues.location || '');
+      formData.append('Rsvp', formValues.rsvp || '');
+
+      if (formValues.date) {
+        formData.append('Date', new Date(formValues.date).toISOString());
+      }
+
+      if (this.selectedImageFile) {
+        formData.append('ImageFile', this.selectedImageFile);
+      }
+
+      await this.restService.createEvent(formData);
       this.navigationService.navigateToHomepage();
     } else {
       this.validationError = true;

@@ -15,13 +15,12 @@
         [formControlLocation]="'location'"
         [placeholderEventTitle]="'Event Name'"
         [locationPlaceholder]="'Location'"
-        [image]="''"
+        (imageSelected)="onImageSelected($event)"
       ></app-event-main-info-card>
 
       <div class="flex flex-row gap-6 w-full">
         <div class="flex flex-col gap-6">
           <app-event-info-card
-            [infoCardtitle]="'Your Name'"
             [subTitle]="'Arrangers note'"
             [placeholderTitle]="'Your Name'"
             [placeholderTextArea]="'Tell the guests about your event'"
@@ -30,7 +29,6 @@
             [formControlDescription]="'description'"
           ></app-event-info-card>
           <app-event-info-card
-            [infoCardtitle]="'Add Category'"
             [subTitle]="'Ex. Birthday, After Work'"
             [placeholderTitle]="'Add Category'"
             [placeholderTextArea]="'Tell the guests about your event'"
@@ -44,7 +42,7 @@
           <app-event-info-card
             [infoCardtitle]="'RSVP'"
             [subTitle]="'Date and time'"
-            [placeholderTitle]="'Add RSVP'"
+            [placeholderTitle]="'RSVP'"
             [placeholderTextArea]="'Add a RSVP note'"
             [formGroup]="eventForm"
             [formControlDescription]="'rsvp'"

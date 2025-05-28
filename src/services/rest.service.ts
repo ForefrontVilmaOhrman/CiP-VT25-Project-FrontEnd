@@ -18,7 +18,7 @@ export class RestService {
    */
   async getData(): Promise<AppEvent[]> {
     this.eventData = await firstValueFrom(
-      this.httpClient.get<AppEvent[]>(Constants.API_URL + '/AppEvents'),
+      this.httpClient.get<AppEvent[]>(Constants.API_URL + '/appevents'),
     );
     return this.eventData;
   }
@@ -28,16 +28,28 @@ export class RestService {
    * @param eventId The id of the event to delete
    */
   async deleteEvent(eventId: String): Promise<void> {
-    console.log('Deleting event with id:', eventId);
     await firstValueFrom(
-      this.httpClient.delete<void>(`${Constants.API_URL}/AppEvents/${eventId}`),
+      this.httpClient.delete<void>(`${Constants.API_URL}/appevents/${eventId}`),
     );
   }
 
-  async createEvent(data: any): Promise<void> {
-    console.log('Creating event with data:', data);
+  async createEvent(data: FormData): Promise<void> {
     await firstValueFrom(
-      this.httpClient.post<void>(`${Constants.API_URL}/AppEvents`, data),
+      this.httpClient.post<void>(`${Constants.API_URL}/appevents`, data),
+    );
+  }
+
+  async updateEvent(data: FormData): Promise<void> {
+    await firstValueFrom(
+      this.httpClient.patch<void>(`${Constants.API_URL}/appevents`, data),
+    );
+  }
+
+  async getEventById(eventId: string): Promise<AppEvent> {
+    return await firstValueFrom(
+      this.httpClient.get<AppEvent>(
+        `${Constants.API_URL}/appevents/${eventId}`,
+      ),
     );
   }
 }

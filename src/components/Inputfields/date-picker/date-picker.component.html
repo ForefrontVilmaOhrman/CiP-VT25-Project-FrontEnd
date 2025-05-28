@@ -2,7 +2,7 @@
   <div class="relative w-full max-w-xs">
     <label
       for="date"
-      class="w-full flex items-center justify-center px-6 py-3 rounded-full cursor-pointer bg-white/10 border border-white/30 hover:bg-white/20 transition-all text-white group"
+      class="w-full flex items-center justify-center px-6 py-3 rounded-full cursor-pointer transition-all group"
     >
       <div class="flex items-center justify-center gap-2 flex-1 text-center">
         <svg
@@ -26,7 +26,7 @@
         *ngIf="form.get('date')?.value"
         type="button"
         (click)="clearDate(); $event.stopPropagation()"
-        class="text-white/70 hover:text-white ml-2 focus:outline-none"
+        class="ml-2 focus:outline-none"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

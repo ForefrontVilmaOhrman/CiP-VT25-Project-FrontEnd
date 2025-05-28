@@ -6,6 +6,6 @@ export interface AppEvent {
   category: string;
   arranger: string;
   location: string;
-  image: string;
+  imageFile: string;
   rsvp: string;
 }
