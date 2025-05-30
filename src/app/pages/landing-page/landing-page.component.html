@@ -1,27 +1,41 @@
-<!-- Hero Section -->
-
-<div class="landing-hero">
-  <h1>Welcome to Event App!</h1>
-  <p>Explore some of our most poplular events below</p>
-
-  <div class="flex justify-center">
-    <app-content-card [filteredEvents]="filteredEvents" />
+<div class="px-4 md:px-12 lg:px-24 ml-18 mr-18 mt-5 mx-auto">
+  <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+    <div class="max-w-xl text-left">
+      <h1 class="text-4xl font-bold mb-4">Welcome to VibeUp!</h1>
+      <p class="text-lg text-gray-700 mb-4">
+        Love hiking, book clubs, skill swaps, or just vibing with new people?
+        VibeUp’s got your back. From spontaneous hangouts to epic private
+        parties, there’s always something going on. Dive into the fun—your next
+        favorite memory is just a tap away!
+      </p>
+      <div class="flex gap-3">
+        <button
+          routerLink="/events"
+          class="bg-pink-700 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-pink-700 focus:shadow-none active:bg-pink-700 hover:bg-pink-800 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none rounded"
+          type="button"
+        >
+          Explore more Events
+        </button>
+        <button
+          routerLink="/create-event"
+          class="bg-pink-700 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-pink-700 focus:shadow-none active:bg-pink-700 hover:bg-pink-800 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none rounded"
+          type="button"
+        >
+          Create an Event
+        </button>
+      </div>
+    </div>
+    <img
+      class="w-140 h-auto rounded-full"
+      src="event-illustration.png"
+      alt="event illustration"
+    />
+  </div>
+  <div class="flex text-center justify-center">
+    <p>Explore our latest events right now below</p>
   </div>
 
-  <div class="flex justify-center m-3 gap-3">
-    <button
-      routerLink="/events"
-      class="bg-purple-700 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-pink-700 focus:shadow-none active:bg-pink-700 hover:bg-pink-800 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none rounded"
-      type="button"
-    >
-      Explore more Events
-    </button>
-    <button
-      routerLink="/create-event"
-      class="bg-purple-700 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-pink-700 focus:shadow-none active:bg-pink-700 hover:bg-pink-800 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none rounded"
-      type="button"
-    >
-      Creat an Event
-    </button>
+  <div class="mt-0">
+    <app-content-card [filteredEvents]="filteredEvents" />
   </div>
 </div>
