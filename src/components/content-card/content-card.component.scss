@@ -1,12 +1,7 @@
 .container {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 12px;
-}
-
-button {
-    background: rgb(62, 180, 137);
-    background: linear-gradient(159deg, rgba(62, 180, 137, 1) 0%, rgba(144, 238, 144, 1) 100%);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
 }

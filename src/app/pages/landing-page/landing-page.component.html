@@ -1,24 +1,27 @@
 <!-- Hero Section -->
+
 <div class="landing-hero">
   <h1>Welcome to Event App!</h1>
-  <p>Your one-stop platform to discover, create, and share amazing events.</p>
-</div>
+  <p>Explore some of our most poplular events below</p>
 
-<!-- Features Section -->
-<div class="features">
-  <div class="feature-card" [routerLink]="['/events']">
-    <span class="material-icons">search</span>
-    <h2>Discover Events</h2>
-    <p>Find events that match your interests, from concerts to workshops and more.</p>
+  <div class="flex justify-center">
+    <app-content-card [filteredEvents]="filteredEvents" />
   </div>
-  <div class="feature-card" [routerLink]="['/create-event']">
-    <span class="material-icons">event</span>
-    <h2>Create Your Own</h2>
-    <p>Host your own events and reach a wider audience with ease.</p>
-  </div>
-</div>
 
-<!-- Footer Callout -->
-<div class="landing-footer">
-  <p>Ready to explore? Start now and dont miss out!</p>
+  <div class="flex justify-center m-3 gap-3">
+    <button
+      routerLink="/events"
+      class="bg-purple-700 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-pink-700 focus:shadow-none active:bg-pink-700 hover:bg-pink-800 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none rounded"
+      type="button"
+    >
+      Explore more Events
+    </button>
+    <button
+      routerLink="/create-event"
+      class="bg-purple-700 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-pink-700 focus:shadow-none active:bg-pink-700 hover:bg-pink-800 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none rounded"
+      type="button"
+    >
+      Creat an Event
+    </button>
+  </div>
 </div>

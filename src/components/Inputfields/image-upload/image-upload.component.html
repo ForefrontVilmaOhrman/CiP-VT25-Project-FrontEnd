@@ -1,7 +1,7 @@
 <div class="w-full h-70 rounded-3xl overflow-hidden">
   <div class="relative w-full h-full">
     <div class="absolute inset-0">
-      <div class="bg-sky-100/20 w-full h-full" *ngIf="!previewUrl"></div>
+      <div class="w-full h-full" *ngIf="!previewUrl"></div>
       <img
         [src]="previewUrl"
         alt="Event image"
@@ -43,7 +43,7 @@
         <button
           type="button"
           (click)="triggerGalleryClick()"
-          class="bg-pink-600 rounded-full w-14 h-14 flex items-center justify-center shadow-lg hover:bg-pink-700 transition"
+          class="bg-pink-700 rounded-full w-14 h-14 flex items-center justify-center shadow-lg hover:bg-pink-700 transition"
           *ngIf="!previewUrl"
           aria-label="Upload image"
         >

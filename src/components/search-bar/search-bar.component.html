@@ -7,7 +7,11 @@
       placeholder="Search by name"
       class="search-input"
     />
-    <select name="city" [(ngModel)]="searchParameters.location" class="search-input">
+    <select
+      name="city"
+      [(ngModel)]="searchParameters.location"
+      class="search-input"
+    >
       <option value="">Select a city</option>
       <option value="">No filter</option>
       <option value="Malmö">Malmö</option>
@@ -27,6 +31,12 @@
       placeholder="End date:"
       class="search-input"
     />
-    <button type="submit" (click)="onSearch()">Search</button>
+    <button
+      class="bg-pink-700 hover:bg-pink-800"
+      type="submit"
+      (click)="onSearch()"
+    >
+      Search
+    </button>
   </form>
 </div>
