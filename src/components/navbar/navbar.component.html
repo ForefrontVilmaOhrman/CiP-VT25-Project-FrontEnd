@@ -1,16 +1,20 @@
-<mat-toolbar>
-  <button
-    mat-icon-button
-    class="example-icon"
-    aria-label="Example icon-button with menu icon"
+<div class="w-full md:px-4 mt-4">
+  <nav
+    aria-label="Main navigation"
+    class="flex items-center bg-neutral-100 rounded-3xl shadow-lg p-2"
   >
-    <mat-icon>menu</mat-icon>
-  </button>
+    <!-- <a
+      [routerLink]="'/'"
+      class="p-2 rounded-full hover:bg-neutral-200 transition"
+      aria-label="Go to homepage"
+    >
+      <img src="logo.png" alt="Logo" class="h-6 w-6" />
+    </a> -->
 
-  <div class="nav-buttons">
-    <button [routerLink]="['/']">Home</button>
-    <button [routerLink]="['/add-event']">Add Event</button>
-    <button [routerLink]="['/create-event']">Create Event</button>
-    <button [routerLink]="['/events']">Events</button>
-  </div>
-</mat-toolbar>
+    <div class="nav-buttons">
+      <app-nav-link href="home" label="Home"></app-nav-link>
+      <app-nav-link href="create-event" label="Create Event"></app-nav-link>
+      <app-nav-link href="events" label="Explore Events"></app-nav-link>
+    </div>
+  </nav>
+</div>

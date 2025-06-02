@@ -5,14 +5,14 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { NavbarComponent } from '../navbar/navbar.component';
-import { FooterComponent } from '../footer/footer.component';
-import { ContentCardComponent } from '../content-card/content-card.component';
-import { SearchBarComponent } from '../search-bar/search-bar.component';
-import { AppEvent } from '../../models/app-event';
-import { RestService } from '../../services/rest.service';
-import { SearchParameters } from '../../models/search-params';
-import { DataService } from '../../services/data.service';
+import { NavbarComponent } from '../../../components/navbar/navbar.component';
+import { FooterComponent } from '../../../components/footer/footer.component';
+import { ContentCardComponent } from '../../../components/content-card/content-card.component';
+import { SearchBarComponent } from '../../../components/search-bar/search-bar.component';
+import { AppEvent } from '../../../models/app-event';
+import { RestService } from '../../../services/rest.service';
+import { SearchParameters } from '../../../models/search-params';
+import { DataService } from '../../../services/data.service';
 
 @Component({
   selector: 'app-main-component',

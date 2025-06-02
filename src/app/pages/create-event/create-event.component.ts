@@ -1,16 +1,26 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { EventInfoCardComponent } from '../../../components/event-info-card/event-info-card.component';
 import { EventMainInfoCardComponent } from '../../../components/event-main-info-card/event-main-info-card.component';
 import { ToolBarComponent } from '../../../components/tool-bar/tool-bar.component';
 import {
-  FormBuilder,
+  FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
 import { RestService } from '../../../services/rest.service';
 import { NavigationService } from '../../../services/navigation.service';
+
+interface EventForm {
+  title: FormControl<string>;
+  description: FormControl<string>;
+  category: FormControl<string>;
+  arranger: FormControl<string>;
+  location: FormControl<string>;
+  date: FormControl<string>;
+  rsvp: FormControl<string>;
+}
 
 @Component({
   selector: 'app-create-event',
@@ -20,45 +30,98 @@ import { NavigationService } from '../../../services/navigation.service';
     EventInfoCardComponent,
     EventMainInfoCardComponent,
     ToolBarComponent,
-    ToolBarComponent,
     ReactiveFormsModule,
   ],
   templateUrl: './create-event.component.html',
   styleUrl: './create-event.component.scss',
 })
 export class CreateEventComponent {
-  eventForm: FormGroup;
-  validationError: boolean = false;
+  private readonly restService = inject(RestService);
+  private readonly navigationService = inject(NavigationService);
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private restService: RestService,
-    private navigationService: NavigationService,
-  ) {
-    this.eventForm = this.formBuilder.group({
-      title: [''],
-      description: [''],
-      category: ['', Validators.required],
-      arranger: ['', Validators.required],
-      location: ['', Validators.required],
-      image: [
-        'https://cipvt25storage.blob.core.windows.net/images/DancepartyBlue.png',
-        Validators.required,
-      ],
-      date: ['', Validators.required],
-      rsvp: [''],
-    });
+  eventForm = new FormGroup<EventForm>({
+    title: new FormControl('', { nonNullable: true }),
+    description: new FormControl('', { nonNullable: true }),
+    category: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+    arranger: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+    location: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+    date: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+    rsvp: new FormControl('', { nonNullable: true }),
+  });
+
+  validationError = false;
+  selectedImageFile: File | null = null;
+  isSubmitting = false;
+
+  onImageSelected(file: File): void {
+    this.selectedImageFile = file;
   }
 
-  async onSubmit() {
-    if (this.eventForm.valid) {
-      await this.restService.createEvent(this.eventForm.value);
-      this.navigationService.navigateToHomepage();
-    } else {
-      this.validationError = true;
-      this.eventForm.markAllAsTouched();
-      console.log('Form is invalid. Please check the input fields.');
+  async onSubmit(): Promise<void> {
+    if (this.isSubmitting) return;
+
+    if (!this.eventForm.valid) {
+      this.handleInvalidForm();
+      return;
     }
-    console.log('Saved event data:', this.eventForm.value);
+
+    this.isSubmitting = true;
+    this.validationError = false;
+
+    try {
+      const formData = this.buildFormData();
+      await this.restService.createEvent(formData);
+      this.navigationService.navigateToHomepage();
+    } catch (error) {
+      console.error('Error creating event:', error);
+    } finally {
+      this.isSubmitting = false;
+    }
+  }
+
+  private handleInvalidForm(): void {
+    this.validationError = true;
+    this.eventForm.markAllAsTouched();
+    console.log('Form is invalid. Please check the input fields.');
+  }
+
+  private buildFormData(): FormData {
+    const formData = new FormData();
+    const formValues = this.eventForm.getRawValue();
+
+    const formFields = [
+      { key: 'Title', value: formValues.title },
+      { key: 'Description', value: formValues.description },
+      { key: 'Category', value: formValues.category },
+      { key: 'Arranger', value: formValues.arranger },
+      { key: 'Location', value: formValues.location },
+      { key: 'Rsvp', value: formValues.rsvp },
+    ];
+
+    formFields.forEach(({ key, value }) => {
+      formData.append(key, value || '');
+    });
+
+    if (formValues.date) {
+      formData.append('Date', new Date(formValues.date).toISOString());
+    }
+
+    if (this.selectedImageFile) {
+      formData.append('ImageFile', this.selectedImageFile);
+    }
+
+    return formData;
   }
 }

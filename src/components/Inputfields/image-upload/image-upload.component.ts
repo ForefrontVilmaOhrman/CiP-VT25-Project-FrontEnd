@@ -10,7 +10,6 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
   standalone: true,
 })
 export class ImageUploadComponent {
-  @Input() imageUrl: string | null = null;
   @Output() imageSelected = new EventEmitter<File>();
 
   previewUrl: SafeUrl | null = null;
