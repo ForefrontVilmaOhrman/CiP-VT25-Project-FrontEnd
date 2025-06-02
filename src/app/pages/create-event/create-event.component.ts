@@ -1,17 +1,26 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { EventInfoCardComponent } from '../../../components/event-info-card/event-info-card.component';
 import { EventMainInfoCardComponent } from '../../../components/event-main-info-card/event-main-info-card.component';
 import { ToolBarComponent } from '../../../components/tool-bar/tool-bar.component';
 import {
-  FormBuilder,
+  FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
 import { RestService } from '../../../services/rest.service';
 import { NavigationService } from '../../../services/navigation.service';
-import { ImageUploadComponent } from '../../../components/Inputfields/image-upload/image-upload.component';
+
+interface EventForm {
+  title: FormControl<string>;
+  description: FormControl<string>;
+  category: FormControl<string>;
+  arranger: FormControl<string>;
+  location: FormControl<string>;
+  date: FormControl<string>;
+  rsvp: FormControl<string>;
+}
 
 @Component({
   selector: 'app-create-event',
@@ -21,65 +30,99 @@ import { ImageUploadComponent } from '../../../components/Inputfields/image-uplo
     EventInfoCardComponent,
     EventMainInfoCardComponent,
     ToolBarComponent,
-    ToolBarComponent,
     ReactiveFormsModule,
   ],
   templateUrl: './create-event.component.html',
   styleUrl: './create-event.component.scss',
 })
 export class CreateEventComponent {
-  eventForm: FormGroup;
-  validationError: boolean = false;
-  selectedImageFile: File | null = null;
+  // Using inject() function for dependency injection
+  private readonly restService = inject(RestService);
+  private readonly navigationService = inject(NavigationService);
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private restService: RestService,
-    private navigationService: NavigationService,
-  ) {
-    this.eventForm = this.formBuilder.group({
-      title: [''],
-      description: [''],
-      category: ['', Validators.required],
-      arranger: ['', Validators.required],
-      location: ['', Validators.required],
-      date: ['', Validators.required],
-      rsvp: [''],
-    });
-  }
+  eventForm = new FormGroup<EventForm>({
+    title: new FormControl('', { nonNullable: true }),
+    description: new FormControl('', { nonNullable: true }),
+    category: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+    arranger: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+    location: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+    date: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+    rsvp: new FormControl('', { nonNullable: true }),
+  });
+
+  validationError = false;
+  selectedImageFile: File | null = null;
+  isSubmitting = false;
 
   onImageSelected(file: File): void {
     this.selectedImageFile = file;
-    console.log('Image selected in CreateEvent:', file.name);
   }
 
-  async onSubmit() {
-    if (this.eventForm.valid) {
-      const formData = new FormData();
-      const formValues = this.eventForm.value;
+  async onSubmit(): Promise<void> {
+    if (this.isSubmitting) return;
 
-      formData.append('Title', formValues.title || '');
-      formData.append('Description', formValues.description || '');
-      formData.append('Category', formValues.category || '');
-      formData.append('Arranger', formValues.arranger || '');
-      formData.append('Location', formValues.location || '');
-      formData.append('Rsvp', formValues.rsvp || '');
+    if (!this.eventForm.valid) {
+      this.handleInvalidForm();
+      return;
+    }
 
-      if (formValues.date) {
-        formData.append('Date', new Date(formValues.date).toISOString());
-      }
+    this.isSubmitting = true;
+    this.validationError = false;
 
-      if (this.selectedImageFile) {
-        formData.append('ImageFile', this.selectedImageFile);
-      }
-
+    try {
+      const formData = this.buildFormData();
       await this.restService.createEvent(formData);
       this.navigationService.navigateToHomepage();
-    } else {
-      this.validationError = true;
-      this.eventForm.markAllAsTouched();
-      console.log('Form is invalid. Please check the input fields.');
+    } catch (error) {
+      console.error('Error creating event:', error);
+    } finally {
+      this.isSubmitting = false;
     }
-    console.log('Saved event data:', this.eventForm.value);
+  }
+
+  private handleInvalidForm(): void {
+    this.validationError = true;
+    this.eventForm.markAllAsTouched();
+    console.log('Form is invalid. Please check the input fields.');
+  }
+
+  private buildFormData(): FormData {
+    const formData = new FormData();
+    const formValues = this.eventForm.getRawValue();
+
+    const formFields = [
+      { key: 'Title', value: formValues.title },
+      { key: 'Description', value: formValues.description },
+      { key: 'Category', value: formValues.category },
+      { key: 'Arranger', value: formValues.arranger },
+      { key: 'Location', value: formValues.location },
+      { key: 'Rsvp', value: formValues.rsvp },
+    ];
+
+    formFields.forEach(({ key, value }) => {
+      formData.append(key, value || '');
+    });
+
+    if (formValues.date) {
+      formData.append('Date', new Date(formValues.date).toISOString());
+    }
+
+    if (this.selectedImageFile) {
+      formData.append('ImageFile', this.selectedImageFile);
+    }
+
+    return formData;
   }
 }
