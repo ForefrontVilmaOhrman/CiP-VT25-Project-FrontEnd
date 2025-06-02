@@ -36,7 +36,6 @@ interface EventForm {
   styleUrl: './create-event.component.scss',
 })
 export class CreateEventComponent {
-  // Using inject() function for dependency injection
   private readonly restService = inject(RestService);
   private readonly navigationService = inject(NavigationService);
 
