@@ -19,12 +19,6 @@ import { ImageUploadComponent } from '../Inputfields/image-upload/image-upload.c
 export class EventMainInfoCardComponent {
   isEditing = false;
 
-  toggleEdit() {
-    this.isEditing = !this.isEditing;
-  }
-
-  @Output() imageSelected = new EventEmitter<File>();
-
   @Input() mainCardTitle: string = '';
   @Input() placeholderEventTitle: string = '';
   @Input() locationPlaceholder: string = '';
@@ -34,8 +28,25 @@ export class EventMainInfoCardComponent {
   @Input() date: string = '';
   @Input() submitted: boolean = false;
 
+  @Input() imageUrl: string | null = null;
+  @Input() selectedImageFile: File | null = null; // Add this
+  @Input() readonly: boolean = false;
+
+  @Output() imageSelected = new EventEmitter<File>();
+
+  get displayImageUrl(): string | null {
+    if (this.selectedImageFile) {
+      return URL.createObjectURL(this.selectedImageFile);
+    }
+    return this.imageUrl;
+  }
+
   onImageSelected(file: File): void {
     this.imageSelected.emit(file);
+  }
+
+  toggleEdit() {
+    this.isEditing = !this.isEditing;
   }
 
   onDateChange(dateValue: string) {

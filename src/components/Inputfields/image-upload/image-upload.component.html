@@ -1,19 +1,22 @@
 <div class="w-full h-70 rounded-3xl overflow-hidden">
   <div class="relative w-full h-full">
     <div class="absolute inset-0">
-      <div class="w-full h-full" *ngIf="!previewUrl"></div>
+      <div class="w-full h-full bg-purple-100" *ngIf="!displayImageUrl"></div>
+
       <img
-        [src]="previewUrl"
+        [src]="displayImageUrl"
         alt="Event image"
         class="w-full h-full object-cover"
+        *ngIf="displayImageUrl"
       />
     </div>
+
     <button
       type="button"
       (click)="triggerGalleryClick()"
       class="absolute top-4 right-4 bg-pink-600 z-10 hover:bg-pink-700 p-2 rounded-full shadow-md transition"
       aria-label="Change image"
-      *ngIf="previewUrl"
+      *ngIf="displayImageUrl && !disabled"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -37,7 +40,7 @@
           type="button"
           (click)="triggerGalleryClick()"
           class="bg-pink-700 rounded-full w-14 h-14 flex items-center justify-center shadow-lg hover:bg-pink-700 transition"
-          *ngIf="!previewUrl"
+          *ngIf="!displayImageUrl && !disabled"
           aria-label="Upload image"
         >
           <svg
@@ -59,13 +62,13 @@
     </div>
   </div>
 
-  <!-- Hidden file inputs -->
   <input
     type="file"
     id="gallery-upload"
     accept="image/*"
     class="hidden"
     (change)="onFileSelected($event)"
+    *ngIf="!disabled"
   />
 
   <input
@@ -74,5 +77,6 @@
     accept="image/*"
     class="hidden"
     (change)="onFileSelected($event)"
+    *ngIf="!disabled"
   />
 </div>

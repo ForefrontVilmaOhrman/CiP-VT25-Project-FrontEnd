@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { EventInfoCardComponent } from '../../../components/event-info-card/event-info-card.component';
 import { EventMainInfoCardComponent } from '../../../components/event-main-info-card/event-main-info-card.component';
 import { ToolBarComponent } from '../../../components/tool-bar/tool-bar.component';
@@ -12,7 +13,6 @@ import {
 import { RestService } from '../../../services/rest.service';
 import { NavigationService } from '../../../services/navigation.service';
 import { EventInfoDropDownComponent } from '../../../components/event-info-drop-down/event-info-drop-down.component';
-import { LocationPickerComponent } from '../../../components/Inputfields/location-picker/location-picker.component';
 
 interface EventForm {
   title: FormControl<string>;
@@ -25,7 +25,7 @@ interface EventForm {
 }
 
 @Component({
-  selector: 'app-create-event',
+  selector: 'app-event-form',
   standalone: true,
   imports: [
     CommonModule,
@@ -34,15 +34,27 @@ interface EventForm {
     ToolBarComponent,
     ReactiveFormsModule,
     EventInfoDropDownComponent,
-    LocationPickerComponent,
   ],
-  templateUrl: './create-event.component.html',
-  styleUrl: './create-event.component.scss',
+  templateUrl: './event-form.component.html',
+  styleUrl: './event-form.component.scss',
 })
-export class CreateEventComponent {
+export class EventFormComponent implements OnInit, OnDestroy {
+  // Services
   private readonly restService = inject(RestService);
   private readonly navigationService = inject(NavigationService);
+  private readonly route = inject(ActivatedRoute);
 
+  // Component State
+  mode: 'create' | 'view' = 'create';
+  eventId?: string;
+  submitted = false;
+  isSubmitting = false;
+
+  // Image handling
+  selectedImageFile: File | null = null;
+  imageUrl: string | null = null;
+
+  // Form
   eventForm = new FormGroup<EventForm>({
     title: new FormControl('', {
       nonNullable: true,
@@ -68,15 +80,52 @@ export class CreateEventComponent {
     rsvp: new FormControl('', { nonNullable: true }),
   });
 
-  submitted = false;
-  selectedImageFile: File | null = null;
-  isSubmitting = false;
+  // Lifecycle hooks
+  ngOnInit(): void {
+    const mode = this.route.snapshot.data['mode'];
+    const eventId = this.route.snapshot.params['id'];
+
+    if (mode === 'view') {
+      this.mode = 'view';
+      this.eventId = eventId;
+      this.loadEventData();
+      this.eventForm.disable();
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.selectedImageFile) {
+      URL.revokeObjectURL(URL.createObjectURL(this.selectedImageFile));
+    }
+  }
+
+  get isViewMode(): boolean {
+    return this.mode === 'view';
+  }
+
+  get isCreateMode(): boolean {
+    return this.mode === 'create';
+  }
+
+  get displayImageUrl(): string | null {
+    if (this.selectedImageFile) {
+      return URL.createObjectURL(this.selectedImageFile);
+    }
+    return this.imageUrl;
+  }
 
   onImageSelected(file: File): void {
+    if (this.selectedImageFile) {
+      URL.revokeObjectURL(URL.createObjectURL(this.selectedImageFile));
+    }
+
     this.selectedImageFile = file;
+    this.imageUrl = null;
   }
 
   async onSubmit(): Promise<void> {
+    if (this.isViewMode) return;
+
     if (this.isSubmitting) return;
 
     if (!this.eventForm.valid) {
@@ -95,6 +144,29 @@ export class CreateEventComponent {
       console.error('Error creating event:', error);
     } finally {
       this.isSubmitting = false;
+    }
+  }
+
+  private async loadEventData(): Promise<void> {
+    try {
+      const event = await this.restService.getEventById(this.eventId!);
+
+      this.eventForm.patchValue({
+        title: event.title || '',
+        description: event.description || '',
+        category: event.category || '',
+        arranger: event.arranger || '',
+        location: event.location || '',
+        date: event.date || '',
+        rsvp: event.rsvp || '',
+      });
+
+      if (event.imageFile) {
+        this.imageUrl = event.imageFile;
+        this.selectedImageFile = null;
+      }
+    } catch (error) {
+      console.error('Error loading event:', error);
     }
   }
 

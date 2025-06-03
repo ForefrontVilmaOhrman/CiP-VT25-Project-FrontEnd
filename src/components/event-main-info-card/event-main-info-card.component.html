@@ -1,5 +1,7 @@
 <div [formGroup]="formGroup" class="w-full max-w-md mx-auto">
   <app-image-upload
+    [imageUrl]="imageUrl"
+    [disabled]="formGroup.disabled"
     (imageSelected)="onImageSelected($event)"
   ></app-image-upload>
 

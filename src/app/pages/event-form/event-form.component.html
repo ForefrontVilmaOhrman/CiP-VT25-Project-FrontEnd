@@ -17,6 +17,7 @@
         [locationPlaceholder]="'Location'"
         [submitted]="submitted"
         (imageSelected)="onImageSelected($event)"
+        [imageUrl]="imageUrl"
       ></app-event-main-info-card>
 
       <div class="flex flex-row gap-6 w-full">
@@ -30,9 +31,12 @@
             [formControlTitle]="'arranger'"
             [formControlDescription]="'description'"
             [submitted]="submitted"
+            [titleNote]="isViewMode ? 'Arranged by' : ''"
+            [categoryText]="eventForm.get('category')?.value || ''"
           ></app-event-info-card>
 
           <app-event-info-drop-down
+            *ngIf="!isViewMode"
             [placeholderTitle]="'Category'"
             [formGroup]="eventForm"
             [formControlTitle]="'category'"

@@ -1,5 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -22,10 +29,13 @@ export class EventInfoCardComponent {
   }
 
   @Input() submitted: boolean = false;
+  @Input() readonly: boolean = false;
   @Input() placeholderTitle: string = '';
   @Input() placeholderTextArea: string = '';
 
   @Input() infoCardtitle: string = '';
+  @Input() titleNote: string = '';
+  @Input() categoryText: string = '';
   @Input() description: string = '';
   @Input() category: string = '';
   @Input() icon: string = '';
