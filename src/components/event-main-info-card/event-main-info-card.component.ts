@@ -32,6 +32,7 @@ export class EventMainInfoCardComponent {
   @Input() formControlTitleMain: string = 'title';
   @Input() formControlLocation: string = 'location';
   @Input() date: string = '';
+  @Input() submitted: boolean = false;
 
   onImageSelected(file: File): void {
     this.imageSelected.emit(file);

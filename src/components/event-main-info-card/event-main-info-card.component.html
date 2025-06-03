@@ -13,13 +13,10 @@
         class="w-full px-3 py-2 rounded outline-none focus:ring-2 focus:ring-pink-400 text-center font-sans font-bold text-3xl"
       />
       <div
-        *ngIf="
-          formGroup.get(formControlTitleMain)?.invalid &&
-          formGroup.get(formControlTitleMain)?.touched
-        "
+        *ngIf="submitted && formGroup.get(formControlTitleMain)?.invalid"
         class="text-red-400 text-xs mt-1"
       >
-        Title is required.
+        Required
       </div>
     </div>
 
@@ -30,6 +27,12 @@
         (dateChange)="onDateChange($event)"
       >
       </app-date-picker>
+      <div
+        *ngIf="submitted && formGroup.get('date')?.invalid"
+        class="text-red-400 text-xs mt-1"
+      >
+        Required
+      </div>
     </div>
 
     <!-- Location -->
@@ -41,15 +44,13 @@
         [formControlName]="formControlLocation"
         class="w-full px-3 py-2 rounded outline-none focus:ring-2 focus:ring-pink-400 resize-none text-center bg-transparent"
       />
-      <div
-        *ngIf="
-          formGroup.get(formControlLocation)?.invalid &&
-          formGroup.get(formControlLocation)?.touched
-        "
-        class="text-red-400 text-xs mt-1"
-      >
-        Location is required.
-      </div>
+    </div>
+
+    <div
+      *ngIf="submitted && formGroup.get(formControlLocation)?.invalid"
+      class="text-red-400 text-xs mt-1"
+    >
+      Required
     </div>
   </div>
 </div>

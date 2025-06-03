@@ -15,6 +15,7 @@
         [formControlLocation]="'location'"
         [placeholderEventTitle]="'Event Name'"
         [locationPlaceholder]="'Location'"
+        [submitted]="submitted"
         (imageSelected)="onImageSelected($event)"
       ></app-event-main-info-card>
 
@@ -27,16 +28,18 @@
             [formGroup]="eventForm"
             [formControlTitle]="'arranger'"
             [formControlDescription]="'description'"
+            [submitted]="submitted"
           ></app-event-info-card>
-          <app-event-info-card
+
+          <app-event-info-drop-down
             [subTitle]="'Ex. Birthday, After Work'"
             [placeholderTitle]="'Add Category'"
-            [placeholderTextArea]="'Tell the guests about your event'"
             [formGroup]="eventForm"
             [formControlTitle]="'category'"
-            [formControlDescription]="'category'"
+            [options]="['Dancing', 'Party', 'Hiking']"
             [icon]="'🗂'"
-          ></app-event-info-card>
+            [submitted]="submitted"
+          ></app-event-info-drop-down>
         </div>
         <div class="flex flex-col gap-6">
           <app-event-info-card

@@ -1,30 +1,24 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { Component, Input } from '@angular/core';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-event-info-card',
+  selector: 'app-event-info-drop-down',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './event-info-card.component.html',
-  styleUrl: './event-info-card.component.scss',
+  templateUrl: './event-info-drop-down.component.html',
+  styleUrl: './event-info-drop-down.component.scss',
 })
-export class EventInfoCardComponent {
+export class EventInfoDropDownComponent {
   isEditing = false;
 
   toggleEdit() {
     this.isEditing = !this.isEditing;
   }
 
-  @Input() submitted: boolean = false;
+  @Input() options: string[] = [];
   @Input() subTitle: string = '';
   @Input() placeholderTitle: string = '';
-  @Input() placeholderTextArea: string = '';
 
   @Input() infoCardtitle: string = '';
   @Input() description: string = '';
@@ -35,4 +29,6 @@ export class EventInfoCardComponent {
 
   @Input() formControlTitle: string = 'title';
   @Input() formControlDescription: string = 'description';
+
+  @Input() submitted: boolean = false;
 }

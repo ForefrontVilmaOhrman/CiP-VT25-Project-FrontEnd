@@ -11,6 +11,7 @@ import {
 } from '@angular/forms';
 import { RestService } from '../../../services/rest.service';
 import { NavigationService } from '../../../services/navigation.service';
+import { EventInfoDropDownComponent } from '../../../components/event-info-drop-down/event-info-drop-down.component';
 
 interface EventForm {
   title: FormControl<string>;
@@ -31,6 +32,7 @@ interface EventForm {
     EventMainInfoCardComponent,
     ToolBarComponent,
     ReactiveFormsModule,
+    EventInfoDropDownComponent,
   ],
   templateUrl: './create-event.component.html',
   styleUrl: './create-event.component.scss',
@@ -40,7 +42,10 @@ export class CreateEventComponent {
   private readonly navigationService = inject(NavigationService);
 
   eventForm = new FormGroup<EventForm>({
-    title: new FormControl('', { nonNullable: true }),
+    title: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
     description: new FormControl('', { nonNullable: true }),
     category: new FormControl('', {
       nonNullable: true,
@@ -61,7 +66,7 @@ export class CreateEventComponent {
     rsvp: new FormControl('', { nonNullable: true }),
   });
 
-  validationError = false;
+  submitted = false;
   selectedImageFile: File | null = null;
   isSubmitting = false;
 
@@ -78,7 +83,7 @@ export class CreateEventComponent {
     }
 
     this.isSubmitting = true;
-    this.validationError = false;
+    this.submitted = false;
 
     try {
       const formData = this.buildFormData();
@@ -92,9 +97,8 @@ export class CreateEventComponent {
   }
 
   private handleInvalidForm(): void {
-    this.validationError = true;
+    this.submitted = true;
     this.eventForm.markAllAsTouched();
-    console.log('Form is invalid. Please check the input fields.');
   }
 
   private buildFormData(): FormData {
