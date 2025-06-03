@@ -22,7 +22,6 @@ export class EventInfoCardComponent {
   }
 
   @Input() submitted: boolean = false;
-  @Input() subTitle: string = '';
   @Input() placeholderTitle: string = '';
   @Input() placeholderTextArea: string = '';
 

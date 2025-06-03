@@ -1,4 +1,4 @@
-<div class="event-details-container form-container mt-6 px-4">
+<div class="event-details-container form-container mt-10 px-4">
   <form
     [formGroup]="eventForm"
     (ngSubmit)="onSubmit()"
@@ -22,9 +22,10 @@
       <div class="flex flex-row gap-6 w-full">
         <div class="flex flex-col gap-6">
           <app-event-info-card
-            [subTitle]="'Arrangers note'"
-            [placeholderTitle]="'Your Name'"
-            [placeholderTextArea]="'Tell the guests about your event'"
+            [placeholderTitle]="'Arrangers Name'"
+            [placeholderTextArea]="
+              'Add a fun event description to spark interest!'
+            "
             [formGroup]="eventForm"
             [formControlTitle]="'arranger'"
             [formControlDescription]="'description'"
@@ -32,8 +33,7 @@
           ></app-event-info-card>
 
           <app-event-info-drop-down
-            [subTitle]="'Ex. Birthday, After Work'"
-            [placeholderTitle]="'Add Category'"
+            [placeholderTitle]="'Category'"
             [formGroup]="eventForm"
             [formControlTitle]="'category'"
             [options]="['Dancing', 'Party', 'Hiking']"
@@ -44,13 +44,26 @@
         <div class="flex flex-col gap-6">
           <app-event-info-card
             [infoCardtitle]="'RSVP'"
-            [subTitle]="'Date and time'"
             [placeholderTitle]="'RSVP'"
             [placeholderTextArea]="'Add a RSVP note'"
             [formGroup]="eventForm"
             [formControlDescription]="'rsvp'"
             [icon]="'🛎'"
           ></app-event-info-card>
+
+          <app-event-info-drop-down
+            [placeholderTitle]="'Location'"
+            [formGroup]="eventForm"
+            [formControlTitle]="'location'"
+            [options]="['Malmö', 'Stockholm', 'Göteborg']"
+            [icon]="'🌎'"
+            [submitted]="submitted"
+          ></app-event-info-drop-down>
+
+          <!-- <app-location-picker
+            [formGroup]="eventForm"
+            [submitted]="submitted"
+          ></app-location-picker> -->
         </div>
       </div>
     </div>

@@ -12,6 +12,7 @@ import {
 import { RestService } from '../../../services/rest.service';
 import { NavigationService } from '../../../services/navigation.service';
 import { EventInfoDropDownComponent } from '../../../components/event-info-drop-down/event-info-drop-down.component';
+import { LocationPickerComponent } from '../../../components/Inputfields/location-picker/location-picker.component';
 
 interface EventForm {
   title: FormControl<string>;
@@ -33,6 +34,7 @@ interface EventForm {
     ToolBarComponent,
     ReactiveFormsModule,
     EventInfoDropDownComponent,
+    LocationPickerComponent,
   ],
   templateUrl: './create-event.component.html',
   styleUrl: './create-event.component.scss',

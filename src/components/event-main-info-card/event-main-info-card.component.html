@@ -20,7 +20,6 @@
       </div>
     </div>
 
-    <!-- Date -->
     <div class="relative w-full max-w-xs p-2">
       <app-date-picker
         [initialDate]="formGroup.get('date')?.value"
@@ -33,24 +32,6 @@
       >
         Required
       </div>
-    </div>
-
-    <!-- Location -->
-    <div class="w-full max-w-xs p-2">
-      <input
-        id="location"
-        type="text"
-        [placeholder]="locationPlaceholder"
-        [formControlName]="formControlLocation"
-        class="w-full px-3 py-2 rounded outline-none focus:ring-2 focus:ring-pink-400 resize-none text-center bg-transparent"
-      />
-    </div>
-
-    <div
-      *ngIf="submitted && formGroup.get(formControlLocation)?.invalid"
-      class="text-red-400 text-xs mt-1"
-    >
-      Required
     </div>
   </div>
 </div>
