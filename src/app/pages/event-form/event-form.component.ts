@@ -39,22 +39,18 @@ interface EventForm {
   styleUrl: './event-form.component.scss',
 })
 export class EventFormComponent implements OnInit, OnDestroy {
-  // Services
   private readonly restService = inject(RestService);
   private readonly navigationService = inject(NavigationService);
   private readonly route = inject(ActivatedRoute);
 
-  // Component State
   mode: 'create' | 'view' = 'create';
   eventId?: string;
   submitted = false;
   isSubmitting = false;
 
-  // Image handling
   selectedImageFile: File | null = null;
   imageUrl: string | null = null;
 
-  // Form
   eventForm = new FormGroup<EventForm>({
     title: new FormControl('', {
       nonNullable: true,
@@ -80,7 +76,6 @@ export class EventFormComponent implements OnInit, OnDestroy {
     rsvp: new FormControl('', { nonNullable: true }),
   });
 
-  // Lifecycle hooks
   ngOnInit(): void {
     const mode = this.route.snapshot.data['mode'];
     const eventId = this.route.snapshot.params['id'];
@@ -201,5 +196,20 @@ export class EventFormComponent implements OnInit, OnDestroy {
     }
 
     return formData;
+  }
+
+  handleDeleteEvent(eventId: string): void {
+    this.restService
+      .deleteEvent(eventId)
+      .then(() => {
+        this.navigationService.navigateToHomepage();
+      })
+      .catch((error) => {
+        console.error('Error deleting event', error);
+      });
+  }
+
+  async onEditEvent(): Promise<void> {
+    console.log('edit events');
   }
 }

@@ -1,15 +1,40 @@
-<div class="flex justify-between">
+<div class="flex justify-between items-center">
+  <!-- Back button -->
   <button
     [routerLink]="['/events']"
-    class="bg-pink-700 hover:bg-pink-800 text-white py-2 px-4 hover:border-transparent rounded"
+    class="bg-pink-700 hover:bg-pink-800 text-white py-2 px-4 rounded transition-colors"
   >
     Back to events
   </button>
-  <button
-    type="submit"
-    id="submit"
-    class="bg-pink-700 hover:bg-pink-800 text-white py-2 px-4 hover:border-transparent rounded"
-  >
-    Save Event
-  </button>
+
+  <div class="flex gap-3">
+    <button
+      *ngIf="isCreateMode"
+      type="submit"
+      (click)="onSaveClick()"
+      [disabled]="isSubmitting"
+      class="bg-pink-700 hover:bg-pink-800 disabled:bg-pink-400 text-white py-2 px-6 rounded transition-colors flex items-center gap-2"
+    >
+      <span *ngIf="isSubmitting" class="animate-spin">⟳</span>
+      {{ isSubmitting ? "Saving..." : "Save Event" }}
+    </button>
+
+    <ng-container *ngIf="isViewMode">
+      <button
+        type="button"
+        (click)="onEditClick()"
+        class="bg-pink-700 hover:bg-pink-800 disabled:bg-pink-400 text-white py-2 px-6 rounded transition-colors flex items-center gap-2"
+      >
+        Edit Event
+      </button>
+
+      <button
+        type="button"
+        (click)="onDeleteClick()"
+        class="bg-pink-700 hover:bg-pink-800 disabled:bg-pink-400 text-white py-2 px-6 rounded transition-colors flex items-center gap-2"
+      >
+        Delete Event
+      </button>
+    </ng-container>
+  </div>
 </div>
