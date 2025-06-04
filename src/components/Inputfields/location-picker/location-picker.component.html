@@ -1,0 +1,23 @@
+<app-event-info-drop-down
+  [placeholderTitle]="'Location'"
+  [formControlTitle]="'location'"
+  [formGroup]="formGroup"
+  [options]="['Malmö', 'Stockholm', 'Göteborg']"
+  [icon]="'🌎'"
+  [submitted]="submitted"
+></app-event-info-drop-down>
+
+<iframe
+  *ngIf="selectedCoords"
+  width="100%"
+  height="200"
+  [src]="
+    'https://maps.google.com/maps?q=' +
+    selectedCoords.lat +
+    ',' +
+    selectedCoords.lng +
+    '&hl=sv&z=13&output=embed'
+  "
+  class="rounded mt-4"
+  frameborder="0"
+></iframe>

@@ -10,13 +10,21 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
   standalone: true,
 })
 export class ImageUploadComponent {
+  @Input() imageUrl: string | null = null;
+  @Input() disabled: boolean = false;
   @Output() imageSelected = new EventEmitter<File>();
 
   previewUrl: SafeUrl | null = null;
 
   constructor(private sanitizer: DomSanitizer) {}
 
+  get displayImageUrl(): SafeUrl | string | null {
+    return this.previewUrl || this.imageUrl;
+  }
+
   onFileSelected(event: any): void {
+    if (this.disabled) return;
+
     const file = event.target.files[0];
     if (file && this.isValidImage(file)) {
       this.imageSelected.emit(file);
@@ -39,6 +47,7 @@ export class ImageUploadComponent {
   }
 
   triggerGalleryClick(): void {
+    if (this.disabled) return;
     document.getElementById('gallery-upload')?.click();
   }
 }
