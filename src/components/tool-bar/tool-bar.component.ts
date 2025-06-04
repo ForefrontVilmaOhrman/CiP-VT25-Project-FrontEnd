@@ -10,7 +10,7 @@ import { RouterLink } from '@angular/router';
   styleUrl: './tool-bar.component.scss',
 })
 export class ToolBarComponent {
-  @Input() mode: 'create' | 'view' = 'create';
+  @Input() mode: 'create' | 'view' | 'edit' = 'create';
   @Input() isSubmitting: boolean = false;
   @Input() eventId?: string;
 
@@ -24,6 +24,10 @@ export class ToolBarComponent {
 
   get isViewMode(): boolean {
     return this.mode === 'view';
+  }
+
+  get isEditMode(): boolean {
+    return this.mode === 'edit';
   }
 
   onEditClick(): void {

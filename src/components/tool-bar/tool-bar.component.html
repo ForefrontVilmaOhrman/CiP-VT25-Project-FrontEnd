@@ -36,5 +36,14 @@
         Delete Event
       </button>
     </ng-container>
+
+    <button
+      *ngIf="isEditMode"
+      type="button"
+      (click)="onEditClick()"
+      class="bg-pink-700 hover:bg-pink-800 disabled:bg-pink-400 text-white py-2 px-6 rounded transition-colors flex items-center gap-2"
+    >
+      Save Changes
+    </button>
   </div>
 </div>

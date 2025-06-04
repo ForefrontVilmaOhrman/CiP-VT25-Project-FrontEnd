@@ -9,7 +9,7 @@
       [mode]="mode"
       [isSubmitting]="isSubmitting"
       [eventId]="eventId"
-      (editClicked)="onEditEvent()"
+      (editClicked)="toggleEditMode()"
       (deleteClicked)="eventId && handleDeleteEvent(eventId)"
       (saveClicked)="onSubmit()"
     >
@@ -21,9 +21,7 @@
         [mainCardTitle]="'Main Info'"
         [formGroup]="eventForm"
         [formControlTitleMain]="'title'"
-        [formControlLocation]="'location'"
         [placeholderEventTitle]="'Event Name'"
-        [locationPlaceholder]="'Location'"
         [submitted]="submitted"
         (imageSelected)="onImageSelected($event)"
         [imageUrl]="imageUrl"
@@ -41,7 +39,8 @@
             [formControlDescription]="'description'"
             [submitted]="submitted"
             [titleNote]="isViewMode ? 'Arranged by' : ''"
-            [categoryText]="eventForm.get('category')?.value || ''"
+            [isViewMode]="isViewMode"
+            [category]="'Category: ' + eventForm.get('category')?.value || ''"
           ></app-event-info-card>
 
           <app-event-info-drop-down
@@ -56,10 +55,11 @@
         </div>
         <div class="flex flex-col gap-6">
           <app-event-info-card
-            [infoCardtitle]="'RSVP'"
-            [placeholderTitle]="'RSVP'"
+            [isEditableTitle]="false"
+            [staticTitleText]="'RSVP'"
             [placeholderTextArea]="'Add a RSVP note'"
             [formGroup]="eventForm"
+            [submitted]="submitted"
             [formControlDescription]="'rsvp'"
             [icon]="'🛎'"
           ></app-event-info-card>

@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { EventDetailsComponent } from '../components/event-details/event-details.component';
+
 import { MainComponentComponent } from './pages/browsing-page/main-component.component';
 
 import { EventFormComponent } from './pages/event-form/event-form.component';

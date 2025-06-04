@@ -57,4 +57,15 @@ export class EventMainInfoCardComponent {
       }
     }
   }
+
+  formatDate(dateString: string | null): string {
+    if (!dateString) return 'Date not set';
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+  }
 }

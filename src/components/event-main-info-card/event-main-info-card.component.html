@@ -23,17 +23,24 @@
     </div>
 
     <div class="relative w-full max-w-xs p-2">
-      <app-date-picker
-        [initialDate]="formGroup.get('date')?.value"
-        (dateChange)="onDateChange($event)"
-      >
-      </app-date-picker>
-      <div
-        *ngIf="submitted && formGroup.get('date')?.invalid"
-        class="text-red-400 text-xs mt-1"
-      >
-        Required
-      </div>
+      <ng-container *ngIf="formGroup.disabled; else datePicker">
+        <p class="text-center text-lg">
+          {{ formatDate(formGroup.get("date")?.value) }}
+        </p>
+      </ng-container>
+      <ng-template #datePicker>
+        <app-date-picker
+          [initialDate]="formGroup.get('date')?.value"
+          (dateChange)="onDateChange($event)"
+        >
+        </app-date-picker>
+        <div
+          *ngIf="submitted && formGroup.get('date')?.invalid"
+          class="text-red-400 text-xs mt-1"
+        >
+          Required
+        </div>
+      </ng-template>
     </div>
   </div>
 </div>

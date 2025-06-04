@@ -43,7 +43,7 @@ export class EventFormComponent implements OnInit, OnDestroy {
   private readonly navigationService = inject(NavigationService);
   private readonly route = inject(ActivatedRoute);
 
-  mode: 'create' | 'view' = 'create';
+  mode: 'create' | 'view' | 'edit' = 'create';
   eventId?: string;
   submitted = false;
   isSubmitting = false;
@@ -102,6 +102,10 @@ export class EventFormComponent implements OnInit, OnDestroy {
     return this.mode === 'create';
   }
 
+  get isEditMode(): boolean {
+    return this.mode === 'edit';
+  }
+
   get displayImageUrl(): string | null {
     if (this.selectedImageFile) {
       return URL.createObjectURL(this.selectedImageFile);
@@ -146,15 +150,21 @@ export class EventFormComponent implements OnInit, OnDestroy {
     try {
       const event = await this.restService.getEventById(this.eventId!);
 
+      const formattedDate = event.date
+        ? new Date(event.date).toISOString().split('T')[0]
+        : '';
+
       this.eventForm.patchValue({
         title: event.title || '',
         description: event.description || '',
         category: event.category || '',
         arranger: event.arranger || '',
         location: event.location || '',
-        date: event.date || '',
+        date: formattedDate,
         rsvp: event.rsvp || '',
       });
+
+      console.log('Formatted Date ' + formattedDate);
 
       if (event.imageFile) {
         this.imageUrl = event.imageFile;
@@ -209,7 +219,30 @@ export class EventFormComponent implements OnInit, OnDestroy {
       });
   }
 
-  async onEditEvent(): Promise<void> {
-    console.log('edit events');
+  handleUpdateEvent(): void {
+    if (!this.eventForm.valid) {
+      this.handleInvalidForm();
+      return;
+    }
+
+    this.restService
+      .updateEvent(this.eventId!, this.buildFormData())
+      .then(() => {
+        this.loadEventData();
+      })
+      .catch((error) => {
+        console.error('Error updating event:', error);
+      });
+  }
+
+  toggleEditMode(): void {
+    if (this.isViewMode) {
+      this.mode = 'edit';
+      this.eventForm.enable();
+    } else if (this.isEditMode) {
+      this.mode = 'view';
+      this.handleUpdateEvent();
+      this.eventForm.disable();
+    }
   }
 }
