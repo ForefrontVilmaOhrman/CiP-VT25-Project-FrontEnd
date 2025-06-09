@@ -212,7 +212,7 @@ export class EventFormComponent implements OnInit, OnDestroy {
     this.restService
       .deleteEvent(eventId)
       .then(() => {
-        this.navigationService.navigateToHomepage();
+        this.navigationService.navigateToEventsPage();
       })
       .catch((error) => {
         console.error('Error deleting event', error);
