@@ -39,9 +39,12 @@ export class RestService {
     );
   }
 
-  async updateEvent(data: FormData): Promise<void> {
+  async updateEvent(eventId: String, data: FormData): Promise<void> {
     await firstValueFrom(
-      this.httpClient.patch<void>(`${Constants.API_URL}/appevents`, data),
+      this.httpClient.patch<void>(
+        `${Constants.API_URL}/appevents/${eventId}`,
+        data,
+      ),
     );
   }
 

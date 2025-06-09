@@ -1,5 +1,7 @@
 <div [formGroup]="formGroup" class="w-full max-w-md mx-auto">
   <app-image-upload
+    [imageUrl]="imageUrl"
+    [disabled]="formGroup.disabled"
     (imageSelected)="onImageSelected($event)"
   ></app-image-upload>
 
@@ -13,43 +15,32 @@
         class="w-full px-3 py-2 rounded outline-none focus:ring-2 focus:ring-pink-400 text-center font-sans font-bold text-3xl"
       />
       <div
-        *ngIf="
-          formGroup.get(formControlTitleMain)?.invalid &&
-          formGroup.get(formControlTitleMain)?.touched
-        "
+        *ngIf="submitted && formGroup.get(formControlTitleMain)?.invalid"
         class="text-red-400 text-xs mt-1"
       >
-        Title is required.
+        Required
       </div>
     </div>
 
-    <!-- Date -->
     <div class="relative w-full max-w-xs p-2">
-      <app-date-picker
-        [initialDate]="formGroup.get('date')?.value"
-        (dateChange)="onDateChange($event)"
-      >
-      </app-date-picker>
-    </div>
-
-    <!-- Location -->
-    <div class="w-full max-w-xs p-2">
-      <input
-        id="location"
-        type="text"
-        [placeholder]="locationPlaceholder"
-        [formControlName]="formControlLocation"
-        class="w-full px-3 py-2 rounded outline-none focus:ring-2 focus:ring-pink-400 resize-none text-center bg-transparent"
-      />
-      <div
-        *ngIf="
-          formGroup.get(formControlLocation)?.invalid &&
-          formGroup.get(formControlLocation)?.touched
-        "
-        class="text-red-400 text-xs mt-1"
-      >
-        Location is required.
-      </div>
+      <ng-container *ngIf="formGroup.disabled; else datePicker">
+        <p class="text-center text-lg">
+          {{ formatDate(formGroup.get("date")?.value) }}
+        </p>
+      </ng-container>
+      <ng-template #datePicker>
+        <app-date-picker
+          [initialDate]="formGroup.get('date')?.value"
+          (dateChange)="onDateChange($event)"
+        >
+        </app-date-picker>
+        <div
+          *ngIf="submitted && formGroup.get('date')?.invalid"
+          class="text-red-400 text-xs mt-1"
+        >
+          Required
+        </div>
+      </ng-template>
     </div>
   </div>
 </div>

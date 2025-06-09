@@ -1,0 +1,32 @@
+<div [formGroup]="formGroup" class="p-4 rounded-2xl shadow-lg bg-neutral-100">
+  <!-- Avatar + Input -->
+  <div class="flex items-center gap-3">
+    <div
+      class="bg-pink-700 w-10 h-10 flex items-center text-white justify-center rounded-full text-lg font-bold"
+    >
+      {{ icon || formGroup.get(formControlTitle)?.value?.[0] || "" }}
+    </div>
+    <div class="flex flex-col">
+      <input
+        type="text"
+        [formControlName]="formControlTitle"
+        [placeholder]="placeholderTitle"
+        [attr.list]="formControlTitle + '-options'"
+        class="text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-pink-400"
+      />
+
+      <datalist [id]="formControlTitle + '-options'">
+        <option *ngFor="let option of options" [value]="option"></option>
+      </datalist>
+      <div class="text-sm">{{ subTitle }}</div>
+    </div>
+  </div>
+
+  <!-- Validation for header -->
+  <div
+    *ngIf="submitted && formGroup.get(formControlTitle)?.invalid"
+    class="text-red-400 text-xs mt-1"
+  >
+    Required
+  </div>
+</div>
